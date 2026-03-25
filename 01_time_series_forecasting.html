@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Forecasting Non-Stationary Time-Series</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #191a1a;
+      color: #b8b8b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 24px;
+    }
+
+    .meta {
+      margin-bottom: 48px;
+    }
+
+    .meta-item {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .meta-item a {
+      color: #8b9dc3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .meta-item a:hover {
+      color: #c9cdd6;
+    }
+
+    /* --- Sections --- */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #333;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    strong {
+      color: #e8e6e3;
+      font-weight: 600;
+    }
+
+    /* --- Bullet points --- */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+
+    ul li {
+      font-size: 15px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: #444;
+    }
+
+    /* --- Diagram --- */
+    .diagram-wrapper {
+      border: 1px solid #2a2a2a;
+      padding: 32px 16px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-wrapper svg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 12px;
+    }
+
+    /* --- Table --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 24px 0;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #333;
+      font-weight: 700;
+      font-size: 13px;
+      color: #8b9dc3;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      width: 190px;
+      color: #8b9dc3;
+    }
+
+    code {
+      background: #232525;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: #a0b4d0;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    /* --- Metrics --- */
+    .metrics {
+      margin: 24px 0;
+    }
+
+    .metric {
+      margin-bottom: 12px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e8e6e3;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* --- Divider --- */
+    hr {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0;
+    }
+
+    a {
+      color: #8b9dc3;
+    }
+
+    /* --- NDA tag --- */
+    .nda-tag {
+      font-size: 12px;
+      color: #555;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Forecasting Non-Stationary Time-Series</h1>
+    <div class="meta">
+      <div class="meta-item">Master's Thesis at IIT Bombay | Industry collaboration with <a href="https://www.sigmastream.com/" target="_blank">SigmaStream LLC</a></div>
+      <div class="meta-item">Published as <a href="https://search.ipindia.gov.in/IPOJournal/Journal/ViewJournal?FileName=ipo-docs/IPIndia_Docs/PAT/2022/26_2022/Part-1.pdf#page=275" target="_blank">Indian Patent Application</a></div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="section">
+      <h2>The Problem</h2>
+      <ul>
+        <li>Real-world time-series (drilling sensors, cardiac monitors, financial instruments) are <strong>non-stationary</strong> — their statistical properties shift as the system moves between operating regimes</li>
+        <li>Conventional models (ARIMA, exponential smoothing) assume stationarity. When the regime changes, they fail silently</li>
+        <li>The harder problem: <strong>automatically detect regime changes and adapt the forecast, without a human in the loop</strong></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- HLD -->
+    <div class="section">
+      <h2>High-Level Design</h2>
+      <ul>
+        <li>Transform time-series segments into <strong>time-frequency images</strong> (CWT scalograms)</li>
+        <li>Extract visual features via a <strong>pretrained CNN</strong> — no training on domain data</li>
+        <li>Cluster the feature vectors — each cluster = a distinct regime</li>
+        <li>Train a separate <strong>forecasting model per regime</strong></li>
+        <li>At inference: identify the current regime, route to the right model, forecast</li>
+      </ul>
+
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 680 420" width="680" height="420" xmlns="http://www.w3.org/2000/svg">
+          <!-- Phase 1 -->
+          <text x="340" y="20" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 1 — REGIME DISCOVERY (OFFLINE)</text>
+
+          <!-- Row 1 -->
+          <rect x="10" y="40" width="140" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="80" y="60" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Raw Time-Series</text>
+          <text x="80" y="76" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">sliding window</text>
+
+          <line x1="150" y1="64" x2="180" y2="64" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="180" y="40" width="140" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="250" y="60" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Wavelet Transform</text>
+          <text x="250" y="76" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Morlet CWT</text>
+
+          <line x1="320" y1="64" x2="350" y2="64" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="350" y="40" width="150" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="425" y="60" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Feature Extraction</text>
+          <text x="425" y="76" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">ResNet50 (pretrained)</text>
+
+          <line x1="500" y1="64" x2="530" y2="64" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="530" y="40" width="140" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="600" y="60" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">UMAP</text>
+          <text x="600" y="76" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">→ 2D projection</text>
+
+          <!-- Arrow down -->
+          <line x1="600" y1="88" x2="600" y2="118" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <!-- Row 2 -->
+          <rect x="530" y="120" width="140" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="600" y="140" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Clustering</text>
+          <text x="600" y="156" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">GMM + BIC (auto k)</text>
+
+          <line x1="530" y1="144" x2="382" y2="144" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="230" y="120" width="150" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="305" y="140" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Regime Mapping</text>
+          <text x="305" y="156" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">sample → cluster</text>
+
+          <line x1="230" y1="144" x2="172" y2="144" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="10" y="120" width="160" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="90" y="140" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Regime-Specific ARMA</text>
+          <text x="90" y="156" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">one model per cluster</text>
+
+          <line x1="90" y1="168" x2="90" y2="194" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="20" y="196" width="140" height="36" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="90" y="219" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Model Repository</text>
+
+          <!-- Separator -->
+          <line x1="10" y1="264" x2="670" y2="264" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- Phase 2 -->
+          <text x="340" y="290" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 2 — ONLINE FORECASTING (AT TIME t)</text>
+
+          <rect x="10" y="310" width="110" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="65" y="330" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">New Segment</text>
+          <text x="65" y="346" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">at time t</text>
+
+          <line x1="120" y1="334" x2="145" y2="334" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="145" y="310" width="100" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="195" y="330" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">CWT</text>
+          <text x="195" y="346" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">→ image</text>
+
+          <line x1="245" y1="334" x2="270" y2="334" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="270" y="310" width="100" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="320" y="330" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">ResNet50</text>
+          <text x="320" y="346" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">→ vector</text>
+
+          <line x1="370" y1="334" x2="395" y2="334" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="395" y="310" width="120" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="455" y="330" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Identify Regime</text>
+          <text x="455" y="346" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">UMAP → cluster</text>
+
+          <line x1="515" y1="334" x2="540" y2="334" stroke="#444" stroke-width="1" marker-end="url(#arr)"/>
+
+          <rect x="540" y="310" width="130" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="605" y="330" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Forecast h steps</text>
+          <text x="605" y="346" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">cluster ARMA</text>
+
+          <!-- Refresh note -->
+          <text x="340" y="400" text-anchor="middle" fill="#444" font-size="11" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Models refresh periodically as new data arrives.</text>
+
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Two-phase pipeline for regime-aware forecasting</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- LLD -->
+    <div class="section">
+      <h2>Low-Level Design</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Segmentation</td>
+            <td>Overlapping sliding windows. Overlap ensures no regime transition is missed at boundaries.</td>
+          </tr>
+          <tr>
+            <td>Time-Freq Transform</td>
+            <td><code>Morlet CWT</code> at multiple scales. Produces a 2D scalogram per segment. Unlike STFT, CWT gives adaptive resolution across frequencies.</td>
+          </tr>
+          <tr>
+            <td>Feature Extraction</td>
+            <td><code>ResNet50</code> pretrained on ImageNet. No fine-tuning — learned visual features generalize to scalograms.</td>
+          </tr>
+          <tr>
+            <td>Dim. Reduction</td>
+            <td><code>UMAP</code> to 2D. Preserves local + global structure. t-SNE would merge distinct regimes.</td>
+          </tr>
+          <tr>
+            <td>Clustering</td>
+            <td><code>GMM</code> with automatic k via <code>BIC</code> maximization. No manual regime count needed.</td>
+          </tr>
+          <tr>
+            <td>Regime Mapping</td>
+            <td>Each sample mapped to its cluster. Contiguous same-cluster stretches form regime segments.</td>
+          </tr>
+          <tr>
+            <td>Forecasting</td>
+            <td>Per-cluster <code>ARMA(p,q)</code>. Trend removed per segment. p, q selected via <code>AIC</code>.</td>
+          </tr>
+          <tr>
+            <td>Model Refresh</td>
+            <td>Phase 1 re-runs periodically. Cluster boundaries and ARMA parameters adapt to distributional drift.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+
+    <!-- RESULTS -->
+    <div class="section">
+      <h2>Results</h2>
+
+      <ul>
+        <li>Regime-specific ARMA <strong>consistently outperformed global ARIMA baselines</strong>, especially at regime transition boundaries where single-model approaches fail silently</li>
+        <li>Framework validated across domains: oil drilling, biomedical ECG, synthetic multi-regime signals</li>
+        <li>Published as <a href="https://search.ipindia.gov.in/IPOJournal/Journal/ViewJournal?FileName=ipo-docs/IPIndia_Docs/PAT/2022/26_2022/Part-1.pdf#page=275" target="_blank">Indian Patent Application</a></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- PART B — RIG STATE DETECTION -->
+    <div class="section">
+      <h2>Applied: Rig State Detection</h2>
+      <p class="nda-tag">Solution architecture under NDA. Problem and results shared with permission.</p>
+
+      <h3>Problem</h3>
+      <ul>
+        <li>During oil-well drilling, <strong>10 surface sensors</strong> (bit depth, hole depth, WOB, hook load, flow rate, RPM, torque, pump pressure, block height, on/off bottom) stream data at <strong>1 Hz</strong> to a monitoring dashboard</li>
+        <li>The rig cycles through <strong>10 macro operational states</strong> &mdash; stationary, cementing, tripping in, tripping out, casing, linear, tubing, drilling, out of surface, conditioning</li>
+        <li>These states need to be <strong>detected and marked on the dashboard in near real-time</strong> to enable operational decision-making and downstream analytics</li>
+      </ul>
+
+      <h3>Outcome</h3>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">97%+</span>
+          <span class="metric-label"> &mdash; classification accuracy across all 5 wells, 10 operational states from 10 surface sensors</span>
+        </div>
+      </div>
+      <ul>
+        <li>Near real-time downhole state detection on streaming surface sensor data</li>
+        <li>Validated as part of an industry collaboration with <a href="https://www.sigmastream.com/" target="_blank">SigmaStream LLC</a></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- CROSS-DOMAIN -->
+    <div class="section" style="margin-bottom: 24px;">
+      <h2>Cross-Domain Validation</h2>
+      <ul>
+        <li>The core technique (CWT scalogram &rarr; pretrained CNN &rarr; downstream task) was independently validated on <strong>biomedical signal processing</strong> &mdash; fetal QRS complex detection from abdominal ECG using CWT + VGG16</li>
+      </ul>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">92%+ precision, 100% recall</span>
+          <span class="metric-label"> &mdash; QRS complex detection on cardiac signals</span>
+        </div>
+      </div>
+      <ul>
+        <li>Confirms the approach generalizes beyond drilling and industrial time-series</li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>

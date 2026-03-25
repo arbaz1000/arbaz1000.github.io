@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Product Intelligence & Vendor Platform</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #191a1a;
+      color: #b8b8b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 24px;
+    }
+
+    .meta {
+      margin-bottom: 48px;
+    }
+
+    .meta-item {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .meta-item a {
+      color: #8b9dc3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .meta-item a:hover {
+      color: #c9cdd6;
+    }
+
+    /* --- Sections --- */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #333;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    strong {
+      color: #e8e6e3;
+      font-weight: 600;
+    }
+
+    /* --- Bullet points --- */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+
+    ul li {
+      font-size: 15px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "\2014";
+      position: absolute;
+      left: 0;
+      color: #444;
+    }
+
+    ul li ul {
+      margin: 4px 0 0 0;
+    }
+
+    ul li ul li {
+      padding-left: 20px;
+    }
+
+    ul li ul li::before {
+      content: "\2014";
+      left: 4px;
+      color: #333;
+    }
+
+    /* --- Callout block --- */
+    .callout {
+      border-left: 2px solid #8b9dc3;
+      padding: 12px 16px;
+      margin: 16px 0 24px 0;
+      font-size: 14px;
+      color: #999;
+      background: #1d1e1e;
+    }
+
+    .callout strong {
+      color: #c9cdd6;
+    }
+
+    /* --- Diagram --- */
+    .diagram-wrapper {
+      border: 1px solid #2a2a2a;
+      padding: 32px 16px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-wrapper svg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 12px;
+    }
+
+    /* --- Table --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 24px 0;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #333;
+      font-weight: 700;
+      font-size: 13px;
+      color: #8b9dc3;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      width: 190px;
+      color: #8b9dc3;
+    }
+
+    code {
+      background: #232525;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: #a0b4d0;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    /* --- Metrics --- */
+    .metrics {
+      margin: 24px 0;
+    }
+
+    .metric {
+      margin-bottom: 12px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e8e6e3;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* --- Divider --- */
+    hr {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0;
+    }
+
+    a {
+      color: #8b9dc3;
+    }
+
+    /* --- Module label --- */
+    .module-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #6b7280;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Product Intelligence &amp; Vendor Platform</h1>
+    <div class="meta">
+      <div class="meta-item">Workwise AI | Procurement & Estimation Platform</div>
+      <div class="meta-item">Role: Solo AI/backend engineer &mdash; problem framing, domain research, solution design, shipping, feedback loops</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODULE 1: PRODUCT CATALOG LLM PIPELINE       -->
+    <!-- ============================================ -->
+
+    <div class="module-label">Module 1</div>
+    <div class="section">
+      <h2>Product &amp; Vendor Database</h2>
+      <p>The core challenge isn&rsquo;t extraction &mdash; any LLM can pull specs from a product description. The hard part is deciding what &ldquo;same product&rdquo; means across sources that disagree on naming, attribute representation, and categorization &mdash; and building a catalog that gets smarter with every source it ingests rather than just bigger.</p>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="section">
+      <h3>The Problem</h3>
+      <p>Product data arrives from dozens of sources &mdash; vendor catalogs, quotations, historical BOQs &mdash; each with its own naming conventions, units, and attribute formats. &ldquo;SS 316 Gate Valve 2 inch 150#&rdquo; and &ldquo;Stainless Steel Gate Valve 2&Prime; Class 150&rdquo; are the same product, but without normalization they appear as two entries. And both are one word away from &ldquo;SS 316 Globe Valve 2 inch 150#&rdquo; &mdash; which is a completely different product. <strong>When the same product exists as two catalog entries, vendor coverage fragments</strong> &mdash; vendors attached to one entry don&rsquo;t appear when searching the other, so buyers see fewer options and get worse pricing.</p>
+      <p>Building this catalog manually was the status quo: data entry, cross-referencing, deduplication by eyeballing spreadsheets. At 7,000+ products and growing, with every new source adding variants, synonyms, and edge cases, <strong>manual curation doesn&rsquo;t scale, leads to errors, and costs significant analyst time</strong>.</p>
+    </div>
+
+    <!-- DESIGN -->
+    <div class="section">
+      <h3>The Design</h3>
+      <p>Three stages: <strong>ingest &rarr; review &rarr; dedup</strong>. Ingest processes each product one at a time &mdash; classify it, extract its specs, normalize to canonical forms, and write to the catalog. During ingestion, any attribute name or value the pipeline hasn&rsquo;t seen before gets flagged. After all products are ingested, review resolves the flagged attributes in batch (approve as new, map to an existing synonym, or reject). Finally, dedup finds and merges duplicate variants across the catalog. The central idea: <strong>the catalog learns with every source it ingests</strong> &mdash; new naming conventions become synonyms, genuinely new attributes are absorbed, and duplicates are resolved without fragmenting vendor coverage.</p>
+
+      <!-- Pipeline diagram -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 680 260" width="680" height="260" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ===== ROW 1: INGEST ===== -->
+          <text x="340" y="18" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">INGEST &mdash; PER ROW</text>
+
+          <rect x="5" y="36" width="90" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="50" y="56" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Raw Products</text>
+          <text x="50" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">CSV / Excel</text>
+
+          <line x1="95" y1="60" x2="115" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr6)"/>
+
+          <rect x="115" y="36" width="100" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="165" y="56" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Classify</text>
+          <text x="165" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">3-level taxonomy</text>
+
+          <line x1="215" y1="60" x2="235" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr6)"/>
+
+          <rect x="235" y="36" width="100" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="285" y="56" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Extract</text>
+          <text x="285" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">name + specs</text>
+
+          <line x1="335" y1="60" x2="355" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr6)"/>
+
+          <rect x="355" y="36" width="100" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="405" y="56" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Normalize</text>
+          <text x="405" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">canonical forms</text>
+
+          <line x1="455" y1="60" x2="475" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr6)"/>
+
+          <rect x="475" y="36" width="100" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="525" y="56" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Catalog DB</text>
+          <text x="525" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">products + variants</text>
+
+          <!-- Annotation -->
+          <text x="340" y="104" text-anchor="middle" fill="#444" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">5 LLM calls per row &mdash; each row sees prior rows&rsquo; taxonomy; unknown attributes queue for review</text>
+
+          <!-- ===== Separator ===== -->
+          <line x1="10" y1="118" x2="670" y2="118" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== ROW 2: BATCH POST-PROCESSING ===== -->
+          <text x="340" y="140" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BATCH &mdash; AFTER ALL PRODUCTS INGESTED</text>
+
+          <rect x="80" y="156" width="220" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="190" y="176" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Review Flagged Attributes</text>
+          <text x="190" y="192" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">approve new / map synonym / reject</text>
+
+          <line x1="300" y1="180" x2="340" y2="180" stroke="#444" stroke-width="1" marker-end="url(#arr6)"/>
+
+          <rect x="340" y="156" width="235" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="457" y="176" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Dedup Variants</text>
+          <text x="457" y="192" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">similarity filter &rarr; LLM judges each pair</text>
+
+          <!-- Feedback arrow back to DB -->
+          <line x1="575" y1="180" x2="610" y2="180" stroke="#444" stroke-width="1"/>
+          <line x1="610" y1="180" x2="610" y2="60" stroke="#444" stroke-width="1"/>
+          <line x1="610" y1="60" x2="575" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr6)"/>
+
+          <text x="630" y="124" text-anchor="middle" fill="#444" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" writing-mode="tb">feedback</text>
+
+          <defs>
+            <marker id="arr6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Each product is ingested one at a time; flagged attributes and duplicates are resolved in batch after ingestion</div>
+      </div>
+
+      <div class="callout">
+        <strong>Classify</strong> places each product into a 3-level taxonomy (e.g., Mechanical &rarr; Valves &rarr; Gate Valves). Classification determines the attribute set for extraction &mdash; valves get material/size/pressure class, cables get conductor count/voltage rating. A misclassified product gets the wrong attribute set and extracts the wrong specs, so <strong>classification gates everything downstream</strong>. The taxonomy grows organically: the LLM can propose new categories when existing ones don&rsquo;t fit.<br><br>
+        <strong>Extract + Normalize</strong> pulls the core product name and structured attributes, then maps each to canonical forms. Synonyms accumulate: &ldquo;SS 316,&rdquo; &ldquo;Stainless Steel 316,&rdquo; &ldquo;SA 240 Gr 316&rdquo; all resolve to the same canonical and <strong>skip the LLM entirely on future runs</strong>. When the pipeline encounters an attribute name or value it hasn&rsquo;t seen before (e.g., a new spec like &ldquo;surge_rating&rdquo; or a new unit like &ldquo;MVA&rdquo;), it flags it for review rather than dropping it.<br><br>
+        <strong>Review</strong> runs after all products are ingested. All flagged attributes for a category are reviewed together in one batch, so the LLM can spot overlaps (e.g., &ldquo;pipe_material&rdquo; and &ldquo;material&rdquo; are the same concept). Each flagged attribute is <strong>approved as a new canonical, mapped to an existing synonym, or rejected</strong>. Rejected values get a repair pass &mdash; reassigned or discarded, never silently lost.<br><br>
+        <strong>Dedup</strong> runs in three sequential layers &mdash; progressively widening the comparison scope. A cheap similarity filter removes obvious non-matches before the LLM makes the final keep-or-merge decision on each ambiguous pair. The data model separates products (canonical groupings like &ldquo;gate valve&rdquo;) from variants (specific configurations like &ldquo;gate valve, SS 316, 2&Prime;, 150#&rdquo;), so <strong>merging variants doesn&rsquo;t lose vendor associations</strong> &mdash; they transfer to the winning variant. Losers from each layer are excluded from the next to prevent cascading errors.
+      </div>
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="section">
+      <h3>Key Decisions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Classify before extract</td>
+            <td>Extraction quality depends on knowing the category. A valve and a cable need completely different attribute sets. <strong>Classification gates extraction</strong> &mdash; wrong category means wrong attributes means wrong dedup downstream.</td>
+          </tr>
+          <tr>
+            <td>Unknowns queue, not drop</td>
+            <td>Attributes the pipeline hasn&rsquo;t seen before don&rsquo;t corrupt the catalog &mdash; they <strong>queue for batch review</strong>. The pipeline can be exploratory during ingestion because review is the gatekeeper. Approved unknowns become new canonicals or synonyms; rejected ones are excluded from future runs.</td>
+          </tr>
+          <tr>
+            <td>Jaccard + LLM dedup</td>
+            <td>After ingestion, the catalog may have duplicate variants &mdash; same product described differently across sources. Comparing every pair via LLM is prohibitively expensive, so a cheap similarity score <strong>pre-filters to only ambiguous pairs</strong>, then the LLM decides keep or merge. Three sequential layers with loser exclusion prevent cascading merge errors.</td>
+          </tr>
+          <tr>
+            <td>Self-improving synonyms</td>
+            <td>When the pipeline normalizes &ldquo;SS 316&rdquo; to &ldquo;stainless steel 316,&rdquo; that mapping is <strong>stored as a synonym</strong>. Next time any product has &ldquo;SS 316,&rdquo; it resolves instantly without an LLM call &mdash; the pipeline gets faster and more consistent with scale, not just bigger.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section">
+      <h3>Results</h3>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">7,000+ canonical products and growing</span>
+          <span class="metric-label"> &mdash; deduplicated, structured, with full spec attributes and vendor associations</span>
+        </div>
+      </div>
+      <ul>
+        <li>New sources ingested without schema changes &mdash; <strong>upload CSV, run pipeline</strong>, catalog updates automatically</li>
+        <li>Catalog feeds <strong>BOQ-to-RFQ product matching</strong>, cost estimation, and vendor discovery across the Workwise platform</li>
+        <li>Deduplication consolidated <strong>vendor coverage per product</strong> &mdash; buyers see all available vendors in one place, not fragmented across duplicate entries</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- MODULE 2: CATALOG PARSING                     -->
+    <!-- ============================================ -->
+
+    <div class="module-label">Module 2</div>
+    <div class="section">
+      <h2>Catalog Parsing <span style="color: #6b7280; font-weight: 400; font-size: 14px;">(WIP)</span></h2>
+      <p>When a new vendor is onboarded, their product catalog is the primary source of what they sell &mdash; but it arrives as a PDF. Tables span pages, cells merge unpredictably, headers repeat or don&rsquo;t, and no two vendors format their catalogs the same way. Before the product database pipeline (Module 1) can classify and normalize these products, something has to turn the PDF into structured table data.</p>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="section">
+      <h3>The Problem</h3>
+      <p>Vendor product catalogs are dense PDF documents &mdash; product specs in tables that span multiple pages, merged cells, rotated headers, and embedded images mixed with text. Off-the-shelf PDF parsers fail on these layouts: they lose table structure, merge adjacent columns, or miss text inside complex cell arrangements. <strong>The product database can&rsquo;t ingest what it can&rsquo;t parse</strong> &mdash; and manual transcription from PDF catalogs is the bottleneck that limits how fast new vendor data enters the system.</p>
+    </div>
+
+    <!-- DESIGN -->
+    <div class="section">
+      <h3>The Design</h3>
+      <p>Self-hosted <strong>PaddleOCR PPStructureV3</strong>, running CPU-only. The pipeline rasterizes each PDF page, then runs two parallel tracks: <strong>layout detection</strong> identifies regions (tables, text blocks, figures) and <strong>full-page OCR</strong> extracts all visible text. For each detected table region, a dedicated <strong>table structure recognition</strong> model identifies rows, columns, and cell boundaries, followed by <strong>cell-level OCR</strong>. The two OCR passes &mdash; full-page and table-specific &mdash; are merged via bounding box containment to catch text that table detection misses.</p>
+
+      <!-- Pipeline diagram -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 680 190" width="680" height="190" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- Input -->
+          <rect x="5" y="60" width="80" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="45" y="80" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF Pages</text>
+          <text x="45" y="96" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">rasterized</text>
+
+          <line x1="85" y1="84" x2="105" y2="84" stroke="#444" stroke-width="1" marker-end="url(#arr7)"/>
+
+          <!-- Layout Detection -->
+          <rect x="105" y="60" width="110" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="160" y="80" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Layout Detection</text>
+          <text x="160" y="96" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">tables, text, figures</text>
+
+          <!-- Branch to two tracks using right-angle lines -->
+          <!-- Track 1: Full-page OCR (top) -->
+          <line x1="215" y1="72" x2="230" y2="72" stroke="#444" stroke-width="1"/>
+          <line x1="230" y1="72" x2="230" y2="30" stroke="#444" stroke-width="1"/>
+          <line x1="230" y1="30" x2="250" y2="30" stroke="#444" stroke-width="1" marker-end="url(#arr7)"/>
+          <rect x="250" y="6" width="110" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="305" y="26" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Full-Page OCR</text>
+          <text x="305" y="42" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">all visible text</text>
+
+          <!-- Track 2: Table Structure (bottom) -->
+          <line x1="215" y1="96" x2="230" y2="96" stroke="#444" stroke-width="1"/>
+          <line x1="230" y1="96" x2="230" y2="130" stroke="#444" stroke-width="1"/>
+          <line x1="230" y1="130" x2="250" y2="130" stroke="#444" stroke-width="1" marker-end="url(#arr7)"/>
+          <rect x="250" y="106" width="110" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="305" y="126" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Table Structure</text>
+          <text x="305" y="142" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">rows, cols, cells</text>
+
+          <!-- Cell OCR -->
+          <line x1="360" y1="130" x2="390" y2="130" stroke="#444" stroke-width="1" marker-end="url(#arr7)"/>
+          <rect x="390" y="106" width="100" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="440" y="126" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Cell OCR</text>
+          <text x="440" y="142" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per-cell text</text>
+
+          <!-- Merge — right-angle lines converging -->
+          <!-- From Full-Page OCR -->
+          <line x1="360" y1="30" x2="520" y2="30" stroke="#444" stroke-width="1"/>
+          <line x1="520" y1="30" x2="520" y2="68" stroke="#444" stroke-width="1"/>
+          <line x1="520" y1="68" x2="540" y2="68" stroke="#444" stroke-width="1" marker-end="url(#arr7)"/>
+          <!-- From Cell OCR -->
+          <line x1="490" y1="130" x2="520" y2="130" stroke="#444" stroke-width="1"/>
+          <line x1="520" y1="130" x2="520" y2="92" stroke="#444" stroke-width="1"/>
+          <line x1="520" y1="92" x2="540" y2="92" stroke="#444" stroke-width="1" marker-end="url(#arr7)"/>
+
+          <rect x="540" y="56" width="130" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="605" y="76" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Consolidated Output</text>
+          <text x="605" y="92" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">structured tables + text</text>
+
+          <!-- Annotation -->
+          <text x="340" y="180" text-anchor="middle" fill="#444" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Two-pass OCR: full-page catches text that table cell detection misses; merged via bounding box containment</text>
+
+          <defs>
+            <marker id="arr7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Layout detection splits the page; two OCR passes merge to produce structured table data</div>
+      </div>
+
+      <div class="callout">
+        <strong>Why two-pass OCR?</strong> Table structure recognition identifies cell boundaries, and cell-level OCR extracts text within each cell. But some text falls inside the table&rsquo;s bounding box yet outside any detected cell &mdash; merged headers, spanning captions, footnotes. The full-page OCR pass catches these. During consolidation, the two passes are merged via bounding box containment &mdash; <strong>text that the table model missed is recovered from the full-page pass</strong> rather than silently lost.
+      </div>
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="section">
+      <h3>Key Decisions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CPU-only, self-hosted</td>
+            <td>Catalog parsing runs on internal infrastructure without GPU dependency. <strong>No cloud OCR API costs</strong>, no data leaving the network, and the throughput is sufficient for batch catalog processing.</td>
+          </tr>
+          <tr>
+            <td>PaddleOCR PPStructureV3</td>
+            <td>Best open-source option for <strong>table structure recognition</strong> &mdash; handles merged cells, spanning headers, and multi-page tables that simpler OCR engines lose structure on.</td>
+          </tr>
+          <tr>
+            <td>Two-pass OCR</td>
+            <td>Single-pass cell-level OCR loses text in merged headers, spanning captions, and footnotes &mdash; <strong>real data that the product database needs</strong>. A full-page OCR pass runs alongside and recovers what cell detection misses; the two are merged via bounding box containment. Text that falls inside a table region but outside any detected cell is <strong>tracked as &ldquo;missing text&rdquo;</strong> &mdash; surfacing it in a review/feedback loop is a next step.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section">
+      <h3>Results</h3>
+      <ul>
+        <li>Vendor catalogs go from <strong>PDF to structured table data</strong> without manual transcription &mdash; directly feedable into the product database pipeline</li>
+        <li><strong>Next steps:</strong> accuracy evaluation against ground truth, confidence-based routing for low-quality pages, and a review queue for flagged extractions</li>
+      </ul>
+    </div>
+
+
+  </div>
+</body>
+</html>

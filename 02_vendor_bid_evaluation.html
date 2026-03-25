@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Automated Vendor & Bid Evaluation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #191a1a;
+      color: #b8b8b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 24px;
+    }
+
+    .meta {
+      margin-bottom: 48px;
+    }
+
+    .meta-item {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .meta-item a {
+      color: #8b9dc3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .meta-item a:hover {
+      color: #c9cdd6;
+    }
+
+    /* --- Sections --- */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #333;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    strong {
+      color: #e8e6e3;
+      font-weight: 600;
+    }
+
+    /* --- Bullet points --- */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+
+    ul li {
+      font-size: 15px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "\2014";
+      position: absolute;
+      left: 0;
+      color: #444;
+    }
+
+    /* --- Callout block --- */
+    .callout {
+      border-left: 2px solid #8b9dc3;
+      padding: 12px 16px;
+      margin: 16px 0 24px 0;
+      font-size: 14px;
+      color: #999;
+      background: #1d1e1e;
+    }
+
+    .callout strong {
+      color: #c9cdd6;
+    }
+
+    /* --- Diagram --- */
+    .diagram-wrapper {
+      border: 1px solid #2a2a2a;
+      padding: 32px 16px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-wrapper svg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 12px;
+    }
+
+    /* --- Table --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 24px 0;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #333;
+      font-weight: 700;
+      font-size: 13px;
+      color: #8b9dc3;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      width: 190px;
+      color: #8b9dc3;
+    }
+
+    code {
+      background: #232525;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: #a0b4d0;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    /* --- Metrics --- */
+    .metrics {
+      margin: 24px 0;
+    }
+
+    .metric {
+      margin-bottom: 12px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e8e6e3;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* --- Divider --- */
+    hr {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0;
+    }
+
+    a {
+      color: #8b9dc3;
+    }
+
+    /* --- NDA tag --- */
+    .nda-tag {
+      font-size: 12px;
+      color: #555;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    /* --- Module label --- */
+    .module-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #6b7280;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Automated Vendor &amp; Bid Evaluation</h1>
+    <div class="meta">
+      <div class="meta-item">Workwise AI | Procurement & Estimation Platform</div>
+      <div class="meta-item">Role: Solo AI/backend engineer &mdash; problem framing, domain research, solution design, shipping, feedback loops</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODULE 1: TECHNICAL EVALUATION               -->
+    <!-- ============================================ -->
+
+    <div class="module-label">Module 1</div>
+    <div class="section">
+      <h2>Technical Bid Evaluation</h2>
+      <p>The core technical challenge isn&rsquo;t extraction or model orchestration &mdash; it&rsquo;s encoding domain knowledge into system behavior that a domain expert would trust. What a stamp means contractually, which content is the bidder&rsquo;s vs the purchaser&rsquo;s, when &ldquo;no annotation&rdquo; <em>is</em> the answer. The engineering decisions &mdash; hybrid routing, prompt calibration, confidence tiers &mdash; all flow from getting the domain right first.</p>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="section">
+      <h3>The Problem</h3>
+      <p>In EPC procurement, a buyer sends technical specs to bidders. Each bidder responds by stamping the buyer&rsquo;s own documents (datasheets, checklists, spec covers) and returning them alongside their own quotation letter. The result is a single PDF &mdash; 50-100+ pages &mdash; where most of the content is the buyer&rsquo;s original text, and the bidder&rsquo;s actual response is scattered across stamps, handwritten annotations, filled-in fields, and qualifying statements buried in fine print.</p>
+      <p>An engineer then checks this against an evaluation template (TBE), point by point, across 50-100+ evaluation points. <strong>4-6 hours per bidder &times; 4-5 bidders per tender.</strong></p>
+    </div>
+
+    <!-- WHAT MADE IT HARD -->
+    <div class="section">
+      <h3>What Made It Hard</h3>
+
+      <p><strong>Most of the PDF is not the bidder&rsquo;s content.</strong> ~90% of a bidder&rsquo;s response is the buyer&rsquo;s own documents stamped and returned unchanged. The printed text is the purchaser&rsquo;s specs. The only signal is what the bidder <em>added</em> &mdash; stamps, handwritten annotations, filled-in fields, struck-through values, color ink marks. A naive &ldquo;extract all text&rdquo; approach drowns in purchaser content and misses the actual bidder response.</p>
+
+      <p><strong>Stamps mean compliance.</strong> In EPC convention, a bidder stamping a spec cover page is a contractual declaration: &ldquo;we accept this entire document.&rdquo; A stamped page with zero modifications is the normal case &mdash; and it means full compliance. Missing this domain convention means wrong compliance status on every evaluation point that references that document.</p>
+
+      <p><strong>Two failure modes pull in opposite directions.</strong> Let the model infer too freely and it fabricates evidence (&ldquo;API 6D referenced in datasheet&rdquo; &mdash; it never saw the datasheet). Restrict it too much and it refuses to credit valid compliance signals &mdash; stamped documents that contractually mean full acceptance get marked INSUFFICIENT_SUBMISSION. The prompt had to encode the exact boundary: accept blanket compliance from stamps, but state the basis honestly.</p>
+
+      <p><strong>Every client uses a different template.</strong> Different groupings, categories, evaluation criteria. Hardcoding per client doesn&rsquo;t scale.</p>
+    </div>
+
+    <!-- DESIGN (diagram-led) -->
+    <div class="section">
+      <h3>The Design</h3>
+      <p>Three-layer pipeline: <strong>schema understanding &rarr; bidder PDF parsing &rarr; group evaluation</strong>. Domain-agnostic &mdash; works across product categories without hardcoded schemas.</p>
+
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 680 440" width="680" height="440" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ===== ROW 1: STEP 0 — SCHEMA ===== -->
+          <text x="340" y="18" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">STEP 0 &mdash; UNDERSTAND THE TEMPLATE</text>
+
+          <rect x="10" y="36" width="110" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="65" y="56" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">TBE Template</text>
+          <text x="65" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">.xlsx</text>
+
+          <line x1="120" y1="60" x2="155" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="155" y="36" width="170" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="240" y="56" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Schema Understanding</text>
+          <text x="240" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM &rarr; grouped evaluation points</text>
+
+          <!-- Two outputs from Step 0 -->
+          <line x1="325" y1="52" x2="400" y2="52" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="400" y="36" width="140" height="20" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="470" y="50" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">grouped eval points</text>
+
+          <line x1="325" y1="68" x2="400" y2="68" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="400" y="60" width="140" height="20" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="470" y="74" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">line items list</text>
+
+          <!-- ===== Separator 1 ===== -->
+          <line x1="10" y1="108" x2="670" y2="108" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== ROW 2: LAYER 1 — MAP THE SUBMISSION ===== -->
+          <text x="340" y="130" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LAYER 1 &mdash; MAP THE SUBMISSION</text>
+
+          <rect x="10" y="148" width="110" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="65" y="168" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Bidder PDF</text>
+          <text x="65" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">50-100+ pages</text>
+
+          <line x1="120" y1="172" x2="155" y2="172" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="155" y="148" width="160" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="235" y="168" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Page-Level Parse</text>
+          <text x="235" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">text | VLM per page</text>
+
+          <line x1="315" y1="172" x2="350" y2="172" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="350" y="148" width="160" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="430" y="168" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Submission Map</text>
+          <text x="430" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">11 doc types + stamps + flags</text>
+
+          <!-- Two outputs from Layer 1 -->
+          <line x1="510" y1="164" x2="570" y2="164" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="570" y="148" width="100" height="20" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="620" y="162" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">document map</text>
+
+          <line x1="510" y1="180" x2="570" y2="180" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="570" y="172" width="100" height="20" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="620" y="186" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">quotation pages</text>
+
+          <!-- ===== Separator 2 ===== -->
+          <line x1="10" y1="218" x2="670" y2="218" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== ROW 3: LAYER 2 — EVALUATE ===== -->
+          <text x="340" y="240" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LAYER 2 &mdash; EVALUATE</text>
+
+          <!-- Inputs feeding into evaluation -->
+          <rect x="10" y="258" width="130" height="44" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="75" y="276" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">eval points + doc map</text>
+          <text x="75" y="292" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">from Step 0 + Layer 1</text>
+
+          <line x1="140" y1="280" x2="175" y2="280" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="175" y="258" width="180" height="44" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="265" y="276" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Group Evaluation</text>
+          <text x="265" y="292" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">schema + domain rules + evidence</text>
+
+          <line x1="355" y1="280" x2="390" y2="280" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="390" y="258" width="200" height="44" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="490" y="276" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Filled TBE Sheet</text>
+          <text x="490" y="292" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">status + confidence + evidence</text>
+
+          <!-- ===== Separator 3 ===== -->
+          <line x1="10" y1="324" x2="670" y2="324" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== ROW 4: DOWNSTREAM — QUOTATION PARSING ===== -->
+          <text x="340" y="346" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">DOWNSTREAM</text>
+
+          <rect x="10" y="362" width="130" height="44" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="75" y="380" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">line items (Step 0)</text>
+          <text x="75" y="396" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">+ quotation (Layer 1)</text>
+
+          <line x1="140" y1="384" x2="175" y2="384" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="175" y="362" width="180" height="44" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="265" y="380" text-anchor="middle" fill="#555" font-size="10" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotation Parsing Module</text>
+          <text x="265" y="396" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">line-item price verification</text>
+
+          <defs>
+            <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Each layer&rsquo;s output feeds the next &mdash; schema + submission map &rarr; evaluation, line items + quotation &rarr; pricing</div>
+      </div>
+
+      <div class="callout">
+        <strong>Step 0</strong> solves the template problem: the system reads any client&rsquo;s TBE Excel and uses an LLM to understand the structure &mdash; what the evaluation points are, how they&rsquo;re grouped, which ones are technical vs commercial vs line items. The line items list is extracted here for downstream price verification. Runs once per template, cached by hash, reused across all bidders.<br><br>
+        <strong>Layer 1</strong> solves the bidder-vs-purchaser problem: for each page, it identifies what type of document this is (quotation, datasheet, stamped spec cover &mdash; 11 types), whether the bidder stamped it, and crucially, what the bidder actually wrote or changed on this page. Contiguous pages of the same type merge into a structured submission map &mdash; what&rsquo;s in it, where, and what the bidder flagged or changed. The quotation and pricing pages identified here are extracted for downstream price verification alongside Step 0&rsquo;s line items.<br><br>
+        <strong>Layer 2</strong> connects the two: it takes the grouped evaluation points from Step 0, matches them against Layer 1&rsquo;s submission map, and evaluates each one &mdash; does this bidder&rsquo;s submission address it? A stamped spec cover means blanket compliance. A flagged observation on the quotation means a qualification that might affect multiple evaluation points. Each evaluation point gets a status, confidence level, evidence pages, and flagged observations.
+      </div>
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="section">
+      <h3>Key Decisions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hybrid text/VLM routing</td>
+            <td>VLM can&rsquo;t read wide tables (pricing columns compressed to pixels). Text extraction can&rsquo;t see stamps or handwriting. <strong>Per-page routing</strong> based on extractable text length &mdash; each page gets the right model.</td>
+          </tr>
+          <tr>
+            <td>Blanket compliance from stamps</td>
+            <td>EPC convention: stamped spec cover = acceptance of entire document. Without this, every evaluation point referencing a stamped doc gets INSUFFICIENT_SUBMISSION. <strong>Domain knowledge encoded in the evaluation logic</strong>, not just extraction.</td>
+          </tr>
+          <tr>
+            <td>Confidence tiers</td>
+            <td>HIGH = direct evidence, MEDIUM = inferred from blanket stamp, LOW = judgment call. <strong>Human reviewers check LOW first, skip HIGH</strong> &mdash; focuses review time on the rows that matter.</td>
+          </tr>
+          <tr>
+            <td>LLM-based TBE parsing</td>
+            <td>Different clients have different TBE layouts. <strong>Generic LLM parser handles any format</strong> &mdash; new client onboarding is an Excel upload, not engineering work.</td>
+          </tr>
+          <tr>
+            <td>Three-level cache</td>
+            <td>Schema cached per template hash (reused across bidders). PDF parsing cached per file hash. Full results cached per template + PDF combination. <strong>Same inputs = zero LLM calls</strong>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section">
+      <h3>Results</h3>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">~3 min per bidder</span>
+          <span class="metric-label"> &mdash; down from 4-6 hours manual (90 evaluation points, 62-page PDFs)</span>
+        </div>
+      </div>
+      <ul>
+        <li><strong>Consistent, auditable output</strong> &mdash; every evaluation point has compliance status, confidence level, evidence page references, and flagged observations</li>
+        <li>Handles everything from bare-minimum quotation-only submissions to full technical packages with datasheets, certificates, and compliance forms &mdash; <strong>same pipeline, no per-bidder tuning</strong></li>
+        <li>In use by <strong>PSU and EPC clients</strong> on the Workwise platform</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- MODULE 2: FINANCIAL EVALUATION               -->
+    <!-- ============================================ -->
+
+    <div class="module-label">Module 2</div>
+    <div class="section">
+      <h2>Financial &amp; Credential Evaluation</h2>
+      <p>A structured extraction pipeline that works across any client&rsquo;s evaluation template without engineering work per client, produces auditable per-cell output with source citations, and handles the messy reality of Indian financial documents. The value is in the genericity and auditability, not in some deep technical challenge.</p>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="section">
+      <h3>The Problem</h3>
+      <p>Before awarding an EPC contract, the buyer checks each vendor&rsquo;s financial and credential eligibility: annual turnover, net worth, years of experience, similar project history, certifications. An evaluator hunts through 5-15 documents per vendor, cross-references numbers against the tender&rsquo;s evaluation template (an Excel sheet with fields, thresholds, and document requirements), and cites sources. <strong>2-3 hours per vendor &times; 10-15 vendors per tender.</strong></p>
+
+      <p>The core engineering problem is that no single document has all the fields, and the same field can appear in multiple documents with different representations &mdash; &ldquo;23.47 Crores&rdquo; in a CA certificate vs &ldquo;23,47,18,942&rdquo; in a balance sheet vs &ldquo;approximately 25 Crores&rdquo; in a self-declaration. The system maps each field to its designated document types, extracts from those, normalizes Indian financial notation, and resolves conflicts using a source authority hierarchy &mdash; which document type to trust over which, per field &mdash; encoding the same judgment an experienced evaluator applies manually.</p>
+    </div>
+
+    <!-- DESIGN (diagram-led) -->
+    <div class="section">
+      <h3>The Design</h3>
+      <p>Two-phase pipeline: <strong>understand the template + classify documents</strong>, then <strong>extract fields from their designated source types and resolve conflicts by source authority</strong>.</p>
+
+      <!-- Pipeline diagram -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 680 398" width="680" height="398" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ===== ROW 1: SCHEMA + CLASSIFY ===== -->
+          <text x="340" y="18" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 1 &mdash; UNDERSTAND &amp; CLASSIFY</text>
+
+          <!-- Template path -->
+          <rect x="10" y="36" width="120" height="44" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="54" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Client Template</text>
+          <text x="70" y="70" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">.xlsx eval format</text>
+
+          <line x1="130" y1="58" x2="165" y2="58" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="165" y="46" width="155" height="24" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="242" y="62" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Schema Builder</text>
+
+          <line x1="320" y1="58" x2="370" y2="58" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="370" y="46" width="150" height="24" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="445" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">field specs + thresholds</text>
+
+          <!-- Doc classification path -->
+          <rect x="10" y="96" width="120" height="44" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="114" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Docs</text>
+          <text x="70" y="130" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">5-15 PDFs</text>
+
+          <line x1="130" y1="118" x2="165" y2="118" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="165" y="96" width="155" height="44" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="242" y="114" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Classify &amp; Route</text>
+          <text x="242" y="130" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">doc type + text|VLM routing</text>
+
+          <line x1="320" y1="118" x2="370" y2="118" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="370" y="96" width="150" height="44" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="445" y="114" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">typed docs with authority</text>
+          <text x="445" y="130" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">F10 | BS | cert | form</text>
+
+          <!-- ===== Separator ===== -->
+          <line x1="10" y1="162" x2="670" y2="162" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== ROW 2: EXTRACT & RESOLVE ===== -->
+          <text x="340" y="184" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 2 &mdash; EXTRACT &amp; RESOLVE</text>
+
+          <rect x="10" y="202" width="130" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="75" y="222" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Field Extract</text>
+          <text x="75" y="238" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per source type</text>
+
+          <line x1="140" y1="226" x2="175" y2="226" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="175" y="202" width="140" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="245" y="222" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Normalize</text>
+          <text x="245" y="238" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">lakhs, crores &rarr; INR</text>
+
+          <line x1="315" y1="226" x2="350" y2="226" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="350" y="202" width="160" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="430" y="222" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Authority Merge</text>
+          <text x="430" y="238" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">F10 &gt; BS &gt; self-declared</text>
+
+          <line x1="510" y1="226" x2="545" y2="226" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+
+          <rect x="545" y="202" width="125" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="607" y="222" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Eval Report</text>
+          <text x="607" y="238" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Excel + PDF</text>
+
+          <!-- ===== Separator 2 ===== -->
+          <line x1="10" y1="272" x2="670" y2="272" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== ROW 3: PER-CELL OUTPUT ===== -->
+          <text x="340" y="294" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">OUTPUT STRUCTURE</text>
+
+          <rect x="60" y="310" width="560" height="60" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="340" y="330" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Every cell in the evaluation report</text>
+          <text x="340" y="348" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">extracted value &bull; source document &amp; page &bull; remarks &bull; confidence score</text>
+          <text x="340" y="366" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">if conflicting values existed &mdash; which source won and why</text>
+
+          <defs>
+            <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Extract from all sources, normalize, then resolve by document authority &mdash; every field is traceable</div>
+      </div>
+
+      <div class="callout">
+        <strong>Phase 1</strong> runs in parallel: the schema builder reads the client&rsquo;s evaluation template and generates field specifications (what to extract, data types, thresholds), while the classifier categorizes each vendor document by type &mdash; balance sheet, F10, compliance certificate, self-declaration &mdash; and routes each to text or vision extraction based on whether it&rsquo;s digital or scanned.<br><br>
+        <strong>Phase 2</strong> extracts each field from its designated document types &mdash; turnover from the F10 and balance sheet, certifications from scanned certificates, experience from self-declarations. Values are normalized (crore/lakh representations to raw INR) and merged: when the same field appears in multiple sources, the higher-authority source wins. Conflicts are surfaced with source citations &mdash; the evaluator sees the final value and any discrepancies, not a black-box answer.
+      </div>
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="section">
+      <h3>Key Decisions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Extract-all, resolve later</td>
+            <td>Each field has designated source types &mdash; turnover from the F10/balance sheet, experience from self-declarations, certifications from scanned certificates. <strong>Schema defines which document types to look in per field</strong>, and authority ranking picks the winner when multiple sources have the same value.</td>
+          </tr>
+          <tr>
+            <td>Source authority hierarchy</td>
+            <td>CA-certified F10 outranks balance sheet outranks self-declaration for financial fields. For non-financial fields, the hierarchy shifts. <strong>Domain-specific ranking per field type</strong>, not a single global order.</td>
+          </tr>
+          <tr>
+            <td>LLM-based template parsing</td>
+            <td>Each client has their own evaluation format. <strong>New client onboarding = one Excel upload</strong>, not engineering work.</td>
+          </tr>
+          <tr>
+            <td>Per-cell traceability</td>
+            <td>Every extracted value carries its source document, page number, and confidence score. When sources disagree, <strong>the conflict is surfaced alongside the chosen value</strong>. Evaluators can verify and sign off.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section">
+      <h3>Results</h3>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">~4 min per vendor</span>
+          <span class="metric-label"> &mdash; 4-5x faster than manual evaluation across 5-15 documents per vendor</span>
+        </div>
+      </div>
+      <ul>
+        <li>In use by <strong>PSU and EPC clients</strong> on the Workwise platform</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- PLACEHOLDER: MORE MODULES TO FOLLOW          -->
+    <!-- ============================================ -->
+    <!-- Module 3: Cost Estimation -->
+
+  </div>
+</body>
+</html>

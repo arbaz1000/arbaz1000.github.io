@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arbaz Shaikh &mdash; AI Engineering Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #191a1a;
+      color: #b8b8b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .credentials {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .credentials span {
+      color: #6b7280;
+    }
+
+    .credentials .sep {
+      color: #333;
+      margin: 0 6px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #333;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    strong {
+      color: #e8e6e3;
+      font-weight: 600;
+    }
+
+    a {
+      color: #8b9dc3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: #c9cdd6;
+    }
+
+    /* --- Sections --- */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    /* --- Divider --- */
+    hr {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0;
+    }
+
+    /* --- Timeline --- */
+    .timeline {
+      position: relative;
+      margin: 32px 0;
+      padding: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #333;
+    }
+
+    .timeline-items {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      padding: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #333;
+      border: 1.5px solid #555;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-item.active::before {
+      background: #8b9dc3;
+      border-color: #8b9dc3;
+    }
+
+    .timeline-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #e8e6e3;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .timeline-label.active {
+      color: #8b9dc3;
+    }
+
+    .timeline-sub {
+      font-size: 10px;
+      color: #555;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    /* --- Work cards --- */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin: 24px 0;
+    }
+
+    .work-card {
+      border: 1px solid #2a2a2a;
+      padding: 24px;
+      background: #1d1e1e;
+      transition: border-color 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .work-card:hover {
+      border-color: #444;
+    }
+
+    .work-card-org {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #555;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .work-card-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 6px;
+    }
+
+    .work-card-role {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .work-card-desc {
+      font-size: 14px;
+      color: #999;
+      line-height: 1.6;
+    }
+
+    .work-card-modules {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .work-card-modules span {
+      display: inline-block;
+      background: #232525;
+      padding: 2px 8px;
+      margin: 2px 4px 2px 0;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Arbaz Shaikh</h1>
+    <p class="subtitle">AI/ML engineer. I build production AI systems &mdash; LLM pipelines, document intelligence, structured extraction, compliance automation. This portfolio walks through the hard technical problems behind each system and the design decisions that made them work.</p>
+    <div class="credentials">
+      <span>IIT Bombay &mdash; Dual Degree, EE + Signal Processing</span>
+      <span class="sep">|</span>
+      <span>Patent holder</span>
+      <span class="sep">|</span>
+      <span>Swiss Mobility Scholar</span>
+      <span class="sep">|</span>
+      <span>Built AI functions from zero at two companies</span>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- JOURNEY TIMELINE                             -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <div class="timeline">
+        <ul class="timeline-items">
+          <li class="timeline-item">
+            <div class="timeline-label">IIT Bombay</div>
+            <div class="timeline-sub">&rsquo;16&ndash;&rsquo;21</div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-label">Geneva</div>
+            <div class="timeline-sub">&rsquo;19&ndash;&rsquo;20</div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-label">KU Leuven</div>
+            <div class="timeline-sub">&rsquo;21&ndash;&rsquo;22</div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-label">Symita</div>
+            <div class="timeline-sub">&rsquo;23</div>
+          </li>
+          <li class="timeline-item active">
+            <div class="timeline-label active">Facctum</div>
+            <div class="timeline-sub">&rsquo;23&ndash;now</div>
+          </li>
+          <li class="timeline-item active">
+            <div class="timeline-label active">Workwise</div>
+            <div class="timeline-sub">&rsquo;25&ndash;now</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- CASE STUDIES                                  -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <div class="work-grid">
+
+        <a href="workwise_platform.html" class="work-card" style="text-decoration:none;">
+          <div class="work-card-org">Workwise AI &mdash; 2025&ndash;present</div>
+          <div class="work-card-title">Procurement &amp; Estimation Platform</div>
+          <div class="work-card-role">Solo AI/backend engineer &mdash; designed and built 6+ AI systems across the full procurement lifecycle</div>
+          <div class="work-card-desc">End-to-end AI platform for infrastructure procurement. From tender ingestion and BOQ interpretation to vendor matching, quote parsing, bid evaluation, and a self-improving product catalog of 7,000+ items. Two personas (tendering authorities and EPC companies), one shared intelligence layer.</div>
+          <div class="work-card-modules">
+            <span>Tender Summary</span>
+            <span>BOQ-to-RFQ</span>
+            <span>Product DB</span>
+            <span>Catalog Parsing</span>
+            <span>Bid Evaluation</span>
+            <span>Quotation Parsing</span>
+          </div>
+        </a>
+
+        <a href="05_financial_compliance_ai.html" class="work-card" style="text-decoration:none;">
+          <div class="work-card-org">Facctum &mdash; 2023&ndash;present</div>
+          <div class="work-card-title">AI for Financial Compliance</div>
+          <div class="work-card-role">First AI/ML hire at seed stage &mdash; built 8+ systems, mentored 6 interns + 4 junior engineers</div>
+          <div class="work-card-desc">Took sanctions intelligence from POC to production with global banking clients. Built transaction monitoring on 380M UK transactions, deployed private LLM inference for data residency, plus KYC extraction, adverse media graphs, and more across the compliance stack.</div>
+          <div class="work-card-modules">
+            <span>Sanctions Extraction</span>
+            <span>Transaction Monitoring</span>
+            <span>Private LLM Inference</span>
+            <span>KYC / Adverse Media / 4 more</span>
+          </div>
+        </a>
+
+        <a href="01_time_series_forecasting.html" class="work-card" style="text-decoration:none;">
+          <div class="work-card-org">IIT Bombay + SigmaStream LLC &mdash; 2020&ndash;2021</div>
+          <div class="work-card-title">Forecasting Non-Stationary Time Series</div>
+          <div class="work-card-role">Master&rsquo;s thesis &mdash; published as Indian patent application</div>
+          <div class="work-card-desc">Regime-aware forecasting framework: wavelet transforms convert time-series segments to images, pretrained CNN extracts features, clustering discovers regimes automatically, and per-regime ARMA models forecast. Validated on oil drilling (97%+ accuracy) and cardiac signals (92%+ precision, 100% recall).</div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

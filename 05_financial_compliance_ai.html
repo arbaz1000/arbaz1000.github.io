@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: AI for Financial Compliance</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #191a1a;
+      color: #b8b8b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 24px;
+    }
+
+    .meta {
+      margin-bottom: 48px;
+    }
+
+    .meta-item {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .meta-item a {
+      color: #8b9dc3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .meta-item a:hover {
+      color: #c9cdd6;
+    }
+
+    /* --- Sections --- */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #333;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    strong {
+      color: #e8e6e3;
+      font-weight: 600;
+    }
+
+    /* --- Bullet points --- */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+
+    ul li {
+      font-size: 15px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "\2014";
+      position: absolute;
+      left: 0;
+      color: #444;
+    }
+
+    ul li ul {
+      margin: 4px 0 0 0;
+    }
+
+    ul li ul li {
+      padding-left: 20px;
+    }
+
+    ul li ul li::before {
+      content: "\2014";
+      left: 4px;
+      color: #333;
+    }
+
+    /* --- Diagram --- */
+    .diagram-wrapper {
+      border: 1px solid #2a2a2a;
+      padding: 32px 16px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-wrapper svg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 12px;
+    }
+
+    /* --- Table --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 24px 0;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #333;
+      font-weight: 700;
+      font-size: 13px;
+      color: #8b9dc3;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:first-child {
+      font-weight: 700;
+      white-space: nowrap;
+      width: 190px;
+      color: #8b9dc3;
+    }
+
+    code {
+      background: #232525;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: #a0b4d0;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    /* --- Metrics --- */
+    .metrics {
+      margin: 24px 0;
+    }
+
+    .metric {
+      margin-bottom: 12px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e8e6e3;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* --- Divider --- */
+    hr {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0;
+    }
+
+    a {
+      color: #8b9dc3;
+    }
+
+    /* --- Module label --- */
+    .module-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #6b7280;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* --- Systems table --- */
+    .systems-table td:first-child {
+      width: 220px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div style="font-size: 13px; color: #6b7280; margin-bottom: 24px;"><a href="index.html" style="color: #6b7280; text-decoration: underline; text-underline-offset: 3px;">&larr; Portfolio</a></div>
+
+    <h1>AI for Financial Compliance</h1>
+    <div class="meta">
+      <div class="meta-item">Facctum | AI-powered compliance infrastructure for financial institutions</div>
+      <div class="meta-item">Role: First AI/ML hire at seed stage | Mentored 6 interns + 4 junior engineers | Oct 2023 &ndash; present</div>
+    </div>
+
+    <!-- CONTEXT -->
+    <div class="section">
+      <ul>
+        <li>Joined as the <strong>first AI/ML engineer</strong> &mdash; built <strong>8+ systems</strong> across the compliance stack, took FacctList's sanctions intelligence feature from <strong>POC to production</strong> (now live with <strong>global clients</strong>)</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- FACCTLIST                                     -->
+    <!-- ============================================ -->
+
+    <div class="module-label">Flagship</div>
+    <div class="section">
+      <h2>FacctList &mdash; Sanctions Intelligence</h2>
+    </div>
+
+    <div class="section">
+      <h3>The Problem</h3>
+      <ul>
+        <li>FacctList is Facctum's <strong>watchlist management platform</strong> &mdash; ingests, validates, and distributes sanctions lists to banks' screening systems</li>
+        <li>Regulators expect banks to act on sanctions <strong>as soon as press releases are published</strong> &mdash; but consolidated official lists can take significantly longer to follow. The gap is a compliance risk</li>
+        <li>Press releases come in <strong>mixed formats</strong> &mdash; sometimes tabular, sometimes free-form legal text &mdash; with entities, aliases, nationalities, and effective dates embedded inconsistently</li>
+        <li>Previously, <strong>analysts manually read press releases</strong> and updated the database &mdash; a process that took <strong>days per update</strong></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>High-Level Design</h3>
+      <ul>
+        <li><strong>Monitor</strong> polls EU press releases and official journals, detecting new sanctions publications</li>
+        <li><strong>Extractor</strong> parses each publication and extracts structured records &mdash; entity names, aliases, nationalities, sanctions type, effective dates, legal basis
+          <ul>
+            <li><strong>Format-aware parsing</strong> &mdash; different parsers handle tabular vs free-form legal text before a unified LLM extraction step</li>
+            <li>Publications span <strong>tens to hundreds of pages</strong> &mdash; reliable extraction at this scale is a core challenge</li>
+            <li><strong>Alias extraction</strong> &mdash; free-form text lists full names, first/middle/last names, and aliases inconsistently; need to reliably extract all possible name combinations per entity. Evaluated prompt chaining vs fine-tuning, went with prompt chaining</li>
+          </ul>
+        </li>
+        <li>Extracted records feed into FacctList's ingestion pipeline for <strong>deduplication, reconciliation, and distribution</strong> to downstream screening engines</li>
+      </ul>
+
+      <!-- Pipeline diagram -->
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 680 100" width="680" height="100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="26" width="110" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="60" y="46" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EU Press Releases</text>
+          <text x="60" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">journals, gazettes</text>
+
+          <line x1="115" y1="50" x2="130" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+
+          <rect x="130" y="26" width="100" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="180" y="46" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Monitor</text>
+          <text x="180" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">detect publications</text>
+
+          <line x1="230" y1="50" x2="245" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+
+          <rect x="245" y="26" width="145" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="317" y="46" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Extractor</text>
+          <text x="317" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">format-aware LLM workflow</text>
+
+          <line x1="390" y1="50" x2="405" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+
+          <rect x="405" y="26" width="130" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <text x="470" y="46" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Structured Records</text>
+          <text x="470" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">entities, dates, types</text>
+
+          <line x1="535" y1="50" x2="555" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+
+          <rect x="555" y="26" width="105" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="607" y="54" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">FacctList</text>
+
+          <defs>
+            <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Monitor &rarr; Extractor &rarr; FacctList ingestion pipeline</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Results</h3>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">96%</span>
+          <span class="metric-label"> &mdash; field-level extraction accuracy, evaluated over 5+ years of historical data</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">Days &rarr; minutes</span>
+          <span class="metric-label"> &mdash; press release to structured sanctions record</span>
+        </div>
+      </div>
+      <ul>
+        <li>Integrated into FacctList's production pipeline, live with <strong>global clients</strong></li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- FACCTGUARD                                    -->
+    <!-- ============================================ -->
+
+    <div class="module-label">MVP</div>
+    <div class="section">
+      <h2>FacctGuard &mdash; Transaction Monitoring</h2>
+    </div>
+
+    <div class="section">
+      <h3>The Problem</h3>
+      <ul>
+        <li>Banks need to flag suspicious transactions for AML at two levels:
+          <ul>
+            <li><strong>Alert level</strong> &mdash; is this transaction suspicious given the customer's transaction history?</li>
+            <li><strong>SAR level</strong> &mdash; should this transaction alert be escalated to a regulatory filing?</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Approach</h3>
+      <ul>
+        <li>Built on <strong>380M UK transactions</strong> using <strong>LSTM + XGBoost</strong> as complementary models:
+          <ul>
+            <li><strong>LSTM</strong> &mdash; sequential patterns where transaction order matters (velocity, timing)</li>
+            <li><strong>XGBoost</strong> &mdash; tabular features like amounts, counterparty risk, account aggregates</li>
+          </ul>
+        </li>
+        <li><strong>Model explainability layer</strong> &mdash; SHAP feature attributions translated into <strong>LLM-generated natural language summaries</strong>. Ops teams see &ldquo;high-value transfer to a new counterparty in a high-risk jurisdiction&rdquo; instead of feature weight vectors &mdash; actionable reasons, not raw model output</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Results</h3>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-value">3x lift in recall</span>
+          <span class="metric-label"> &mdash; at fixed review capacity vs rule-based alert generation. The ops team reviews the same number of alerts but catches 3x more truly suspicious cases</span>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- PRIVATE LLM INFERENCE                         -->
+    <!-- ============================================ -->
+
+    <div class="module-label">Infrastructure</div>
+    <div class="section">
+      <h2>Private LLM Inference Stack</h2>
+    </div>
+
+    <div class="section">
+      <h3>The Problem</h3>
+      <ul>
+        <li>Compliance systems handle <strong>sensitive financial data</strong> &mdash; transactions, KYC documents, case files</li>
+        <li>Sending this to third-party LLM APIs is a <strong>regulatory and contractual non-starter</strong> for banking clients</li>
+        <li>But multiple systems depend on LLM capabilities &mdash; extraction, summarization, classification</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Approach</h3>
+      <ul>
+        <li>Deployed <strong>self-hosted Qwen-2.5-14B</strong> with <strong>vLLM</strong> as the serving layer &mdash; full inference stack within Facctum's own infrastructure</li>
+        <li><strong>Model selection</strong> &mdash; Qwen-2.5-14B with Apache 2.0 license (unlike Llama); outperforms Mistral at equivalent scale; fine-tunable architecture validated on regulatory document understanding tasks</li>
+        <li>vLLM provides <strong>continuous batching</strong> and <strong>PagedAttention</strong> &mdash; handles variable concurrent load efficiently without dedicating a GPU per request</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Results</h3>
+      <ul>
+        <li><strong>Removed the data residency blocker</strong> &mdash; Facctum can now serve regulated clients who would otherwise reject the product</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- OTHER SYSTEMS                                 -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <h2>Other Compliance Systems</h2>
+
+      <table class="systems-table">
+        <thead>
+          <tr>
+            <th>System</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Inbox assistant</td>
+            <td>Clusters case email threads by topic and urgency, extracts structured fields, drafts analyst responses</td>
+          </tr>
+          <tr>
+            <td>KYC extraction</td>
+            <td>OCR + LLM pipeline to extract fields from identity documents &mdash; passports, utility bills, corporate registrations</td>
+          </tr>
+          <tr>
+            <td>Adverse media graph</td>
+            <td>Extracts entities and relationships from news articles into a <strong>Neo4j</strong> knowledge graph for risk signal discovery</td>
+          </tr>
+          <tr>
+            <td>Text-to-SQL copilot</td>
+            <td>Natural language queries over compliance databases &mdash; analysts ask questions in English, get SQL results</td>
+          </tr>
+          <tr>
+            <td>Semantic name search</td>
+            <td>Fuzzy entity matching across sanctions and watchlists &mdash; handles transliterations, aliases, and partial names</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workwise AI &mdash; Procurement &amp; Estimation Platform</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #191a1a;
+      color: #b8b8b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 16px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #333;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    strong {
+      color: #e8e6e3;
+      font-weight: 600;
+    }
+
+    a {
+      color: #8b9dc3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: #c9cdd6;
+    }
+
+    /* --- Sections --- */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    /* --- Bullet points --- */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+
+    ul li {
+      font-size: 15px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "\2014";
+      position: absolute;
+      left: 0;
+      color: #444;
+    }
+
+    /* --- Diagram --- */
+    .diagram-wrapper {
+      border: 1px solid #2a2a2a;
+      padding: 32px 16px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-wrapper svg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 12px;
+    }
+
+    /* --- Divider --- */
+    hr {
+      border: none;
+      border-top: 1px solid #2a2a2a;
+      margin: 48px 0;
+    }
+
+    /* --- Callout --- */
+    .callout {
+      border-left: 2px solid #8b9dc3;
+      padding: 12px 16px;
+      margin: 16px 0 24px 0;
+      font-size: 14px;
+      color: #999;
+      background: #1d1e1e;
+    }
+
+    .callout strong {
+      color: #c9cdd6;
+    }
+
+    /* --- Module cards --- */
+    .module-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .module-card {
+      border: 1px solid #2a2a2a;
+      padding: 16px 20px;
+      background: #1d1e1e;
+      transition: border-color 0.2s;
+    }
+
+    .module-card:hover {
+      border-color: #444;
+    }
+
+    .module-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #e8e6e3;
+      margin-bottom: 4px;
+    }
+
+    .module-card-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .module-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #555;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .wip-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: #6b7280;
+      background: #252626;
+      padding: 1px 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .meta {
+      margin-bottom: 48px;
+    }
+
+    .meta-item {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .back-link {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .back-link a {
+      color: #6b7280;
+    }
+
+    .back-link a:hover {
+      color: #8b9dc3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="back-link"><a href="index.html">&larr; Portfolio</a></div>
+
+    <h1>Workwise AI</h1>
+    <div class="meta">
+      <div class="meta-item">Procurement &amp; Estimation Platform</div>
+      <div class="meta-item">Role: Solo AI/backend engineer &mdash; problem framing, domain research, solution design, shipping, feedback loops</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- THE PLATFORM                                  -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <p>Infrastructure procurement is a long chain &mdash; tenders get published, companies decide whether to bid, BOQs get broken into vendor inquiries, quotes come back, costs get estimated, bids get submitted, and then the tendering authority evaluates everything. Most of this chain runs on manual document work. I built the AI systems that automate each step.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SYSTEM DIAGRAM                               -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <h2>System Map</h2>
+
+      <div class="diagram-wrapper">
+        <svg viewBox="0 0 700 540" width="700" height="540" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- ===== TENDERING AUTHORITY ===== -->
+          <text x="350" y="20" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">TENDERING AUTHORITY</text>
+          <text x="350" y="35" text-anchor="middle" fill="#444" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Floats tenders, evaluates bids from vendors</text>
+
+          <!-- Float Tender -->
+          <rect x="30" y="50" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="80" y="74" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Floats Tender</text>
+
+          <line x1="130" y1="70" x2="160" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Tech Eval -->
+          <rect x="160" y="50" width="140" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="230" y="74" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tech Eval</text>
+
+          <line x1="300" y1="70" x2="330" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Financial Eval -->
+          <rect x="330" y="50" width="140" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="400" y="74" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Financial Eval</text>
+
+          <line x1="470" y1="70" x2="500" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Award -->
+          <rect x="500" y="50" width="110" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="555" y="74" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Award Contract</text>
+
+          <!-- ===== Separator ===== -->
+          <line x1="10" y1="115" x2="690" y2="115" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== EPC COMPANY ===== -->
+          <text x="350" y="140" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EPC COMPANY</text>
+          <text x="350" y="155" text-anchor="middle" fill="#444" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Bids on tenders, manages procurement for projects</text>
+
+          <!-- Row 1: Tender → Summary → BOQ-to-RFQ → Vendor Inquiries -->
+          <rect x="20" y="175" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="199" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Receives Tender</text>
+
+          <line x1="120" y1="195" x2="150" y2="195" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Tender Summary -->
+          <rect x="150" y="175" width="130" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="215" y="199" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Summary</text>
+
+          <line x1="280" y1="195" x2="320" y2="195" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <text x="300" y="186" text-anchor="middle" fill="#444" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">go/no-go</text>
+
+          <!-- BOQ-to-RFQ -->
+          <rect x="320" y="175" width="130" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="385" y="199" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ-to-RFQ</text>
+
+          <line x1="450" y1="195" x2="480" y2="195" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Vendor Inquiries -->
+          <rect x="480" y="175" width="120" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="540" y="199" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Inquiries</text>
+
+          <!-- Row 2: Quotes → Quotation Parsing → Cost Estimation → Submit Bid -->
+          <rect x="20" y="250" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="274" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotes Return</text>
+
+          <line x1="120" y1="270" x2="150" y2="270" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Quotation Parsing -->
+          <rect x="150" y="250" width="150" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="225" y="267" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotation Parsing</text>
+          <text x="225" y="283" text-anchor="middle" fill="#555" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
+
+          <line x1="300" y1="270" x2="330" y2="270" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Cost Estimation -->
+          <rect x="330" y="250" width="140" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="400" y="267" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Cost Estimation</text>
+          <text x="400" y="283" text-anchor="middle" fill="#555" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
+
+          <line x1="470" y1="270" x2="500" y2="270" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+
+          <!-- Submit Bid -->
+          <rect x="500" y="250" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="550" y="274" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Submit Bid</text>
+
+          <!-- EPC also uses Tech Eval + Financial Eval -->
+          <text x="350" y="325" text-anchor="middle" fill="#444" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EPC companies also evaluate their own vendors&rsquo; bids using Tech Eval + Financial Eval</text>
+
+          <!-- ===== Separator ===== -->
+          <line x1="10" y1="355" x2="690" y2="355" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+
+          <!-- ===== INTERNAL PLATFORM ===== -->
+          <text x="350" y="382" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">INTERNAL PLATFORM</text>
+          <text x="350" y="397" text-anchor="middle" fill="#444" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Shared data layer powering all workflows above</text>
+
+          <!-- Catalog Parsing (left — upstream) -->
+          <rect x="100" y="416" width="200" height="50" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="200" y="438" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Catalog Parsing</text>
+          <text x="200" y="456" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF catalogs &rarr; structured data</text>
+
+          <!-- Arrow: Catalog → Product DB -->
+          <line x1="300" y1="441" x2="380" y2="441" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <text x="340" y="433" text-anchor="middle" fill="#444" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">feeds into</text>
+
+          <!-- Product DB (right — downstream) -->
+          <rect x="380" y="416" width="220" height="50" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
+          <text x="490" y="438" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Product &amp; Vendor Database</text>
+          <text x="490" y="456" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">7,000+ products, 20,000+ vendors</text>
+
+          <!-- Upward connection from Product DB to EPC workflows -->
+          <line x1="490" y1="416" x2="490" y2="340" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="490" y="336" text-anchor="middle" fill="#333" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">product matching, vendor lookup</text>
+
+          <!-- Arrow defs -->
+          <defs>
+            <marker id="arrWk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="diagram-caption">Two personas, one platform &mdash; shared product intelligence underneath</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- HOW IT FITS TOGETHER                          -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <h2>How It Fits Together</h2>
+
+      <p>The <strong>Tendering Authority</strong> side is straightforward &mdash; after vendors submit bids, the platform runs automated <strong>Technical Evaluation</strong> (compliance checking, scoring) and <strong>Financial Evaluation</strong> (price comparison, loading factors, ranking). What took a committee days of manual review produces structured reports in minutes.</p>
+
+      <p>The <strong>EPC Company</strong> side is where the complexity lives. An EPC receives a tender with 10&ndash;30 documents and needs to decide whether to bid, then execute the entire procurement chain if they do:</p>
+      <ul>
+        <li><strong>Tender Summary</strong> extracts scope, timelines, eligibility, and commercial terms from the full tender package &mdash; the team makes a <strong>go/no-go decision</strong> without reading hundreds of pages</li>
+        <li><strong>BOQ-to-RFQ</strong> is the hardest step &mdash; interpreting each BOQ line item requires domain expertise that traditionally bottlenecks on experienced engineers. The pipeline uses semantic chunking, a scratchpad reasoning step, and structured extraction to produce <strong>vendor-ready RFQ packages</strong> with matched products, spec sheets, and approved makes</li>
+        <li>RFQs go out to vendors. <strong>Quotation Parsing</strong> <em>(WIP)</em> will extract structured data from returned quotes and compare against RFQ requirements &mdash; flagging matches, deviations, and missing products</li>
+        <li><strong>Cost Estimation</strong> <em>(WIP)</em> will aggregate parsed quotes with historical pricing to produce the final bid estimate</li>
+      </ul>
+
+      <p>Everything above depends on the <strong>Product &amp; Vendor Database</strong> &mdash; 7,000+ deduplicated products with structured specs and 20,000+ vendor associations. An LLM pipeline classifies, extracts, normalizes, and deduplicates products from any source. <strong>Catalog Parsing</strong> handles the upstream bottleneck: turning vendor PDF catalogs into structured data the pipeline can ingest. EPC companies also use <strong>Tech Eval + Financial Eval</strong> to evaluate their own vendors&rsquo; bids &mdash; same system, different context.</p>
+    </div>
+
+    <hr>
+
+    <!-- ============================================ -->
+    <!-- DEEP DIVES                                    -->
+    <!-- ============================================ -->
+
+    <div class="section">
+      <h2>Deep Dives</h2>
+      <p>Each case study walks through the problem, design, key decisions, and results. Click through for the full story.</p>
+
+      <div class="module-grid">
+        <a href="03_procurement_doc_intelligence.html" class="module-card" style="text-decoration:none;">
+          <div class="module-card-label">Procurement Doc Intelligence</div>
+          <div class="module-card-title">Tender Summary + BOQ-to-RFQ + Quotation Parsing</div>
+          <div class="module-card-desc">Span classification for document indexing, semantic chunking with scratchpad interpretation for BOQ processing, product matching via embed + LLM rerank, and tender document linking. Includes the V1 &rarr; V2 evolution story.</div>
+        </a>
+
+        <a href="04_product_intelligence_vendor_platform.html" class="module-card" style="text-decoration:none;">
+          <div class="module-card-label">Product Intelligence</div>
+          <div class="module-card-title">Product &amp; Vendor Database + Catalog Parsing</div>
+          <div class="module-card-desc">LLM pipeline that classifies, extracts, normalizes, and deduplicates products into a self-improving catalog. Plus self-hosted PaddleOCR for extracting structured tables from vendor PDF catalogs.</div>
+        </a>
+
+        <a href="02_vendor_bid_evaluation.html" class="module-card" style="text-decoration:none;">
+          <div class="module-card-label">Vendor Evaluation</div>
+          <div class="module-card-title">Technical &amp; Financial Bid Evaluation</div>
+          <div class="module-card-desc">Automated compliance checking, scoring, and comparative analysis of vendor bids against tender requirements.</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
