@@ -553,7 +553,7 @@
 
 
   </div>
-<button id="theme-toggle" style="position:fixed;top:16px;right:16px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);padding:6px 10px;cursor:pointer;font-size:13px;font-family:inherit;z-index:100;border-radius:4px;" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');this.textContent=document.body.classList.contains('light')?'Dark':'Light'">Light</button>
-<script>if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.getElementById('theme-toggle').textContent='Dark';}</script>
+<button id="theme-toggle" style="position:fixed;top:20px;right:20px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);width:44px;height:44px;cursor:pointer;font-size:20px;font-family:inherit;z-index:100;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background 0.3s,border-color 0.3s,transform 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.2);" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');this.innerHTML=document.body.classList.contains('light')?'☀️':'🌙';" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🌙</button>
+<script>if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.getElementById('theme-toggle').innerHTML='☀️';}</script>
 </body>
 </html>
