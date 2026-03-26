@@ -5,11 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Study: AI-Powered Document Intelligence for Procurement</title>
   <style>
+    :root {
+      --bg: #1a1d2e;
+      --bg-card: #1e2235;
+      --bg-tag: #242840;
+      --text: #c8c9cd;
+      --text-bright: #e8e6e3;
+      --text-muted: #7b82a0;
+      --text-desc: #a0a3b0;
+      --accent: #6fa3ef;
+      --accent-hover: #a3c4f3;
+      --border: #2a2d3d;
+      --border-hover: #4a5270;
+      --separator: #353a50;
+      --caption: #505878;
+    }
+
+    body.light {
+      --bg: #f5f6f8;
+      --bg-card: #ffffff;
+      --bg-tag: #e8eaf0;
+      --text: #374151;
+      --text-bright: #111827;
+      --text-muted: #6b7280;
+      --text-desc: #4b5563;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border: #d1d5db;
+      --border-hover: #9ca3af;
+      --separator: #e5e7eb;
+      --caption: #9ca3af;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #1a1d2e;
-      color: #c8c9cd;
+      background: var(--bg);
+      color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       line-height: 1.8;
       padding: 0;
@@ -24,7 +56,7 @@
     h1 {
       font-size: 28px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 24px;
     }
 
@@ -34,18 +66,18 @@
 
     .meta-item {
       font-size: 14px;
-      color: #7b82a0;
+      color: var(--text-muted);
       margin-bottom: 4px;
     }
 
     .meta-item a {
-      color: #6fa3ef;
+      color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
     .meta-item a:hover {
-      color: #a3c4f3;
+      color: var(--accent-hover);
     }
 
     /* --- Sections --- */
@@ -56,17 +88,17 @@
     h2 {
       font-size: 18px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 16px;
       text-decoration: underline;
       text-underline-offset: 4px;
-      text-decoration-color: #353a50;
+      text-decoration-color: var(--separator);
     }
 
     h3 {
       font-size: 15px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 8px;
     }
 
@@ -76,7 +108,7 @@
     }
 
     strong {
-      color: #e8e6e3;
+      color: var(--text-bright);
       font-weight: 600;
     }
 
@@ -97,12 +129,12 @@
       content: "\2014";
       position: absolute;
       left: 0;
-      color: #4a5270;
+      color: var(--border-hover);
     }
 
     /* --- Diagram --- */
     .diagram-wrapper {
-      border: 1px solid #2a2d3d;
+      border: 1px solid var(--border);
       padding: 32px 16px;
       margin: 24px 0;
       overflow-x: auto;
@@ -116,7 +148,7 @@
     .diagram-caption {
       text-align: center;
       font-size: 13px;
-      color: #505878;
+      color: var(--caption);
       margin-top: 12px;
     }
 
@@ -131,15 +163,15 @@
     thead th {
       text-align: left;
       padding: 10px 12px;
-      border-bottom: 2px solid #353a50;
+      border-bottom: 2px solid var(--separator);
       font-weight: 700;
       font-size: 13px;
-      color: #6fa3ef;
+      color: var(--accent);
     }
 
     tbody td {
       padding: 10px 12px;
-      border-bottom: 1px solid #2a2d3d;
+      border-bottom: 1px solid var(--border);
       vertical-align: top;
     }
 
@@ -151,14 +183,14 @@
       font-weight: 700;
       white-space: nowrap;
       width: 190px;
-      color: #6fa3ef;
+      color: var(--accent);
     }
 
     code {
-      background: #242840;
+      background: var(--bg-tag);
       padding: 1px 6px;
       font-size: 13px;
-      color: #a0b4d0;
+      color: var(--text-desc);
       font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
     }
 
@@ -174,45 +206,45 @@
     .metric-value {
       font-size: 24px;
       font-weight: 700;
-      color: #e8e6e3;
+      color: var(--text-bright);
     }
 
     .metric-label {
       font-size: 14px;
-      color: #7b82a0;
+      color: var(--text-muted);
     }
 
     /* --- Divider --- */
     hr {
       border: none;
-      border-top: 1px solid #2a2d3d;
+      border-top: 1px solid var(--border);
       margin: 48px 0;
     }
 
     a {
-      color: #6fa3ef;
+      color: var(--accent);
     }
 
     /* --- NDA tag --- */
     .nda-tag {
       font-size: 12px;
-      color: #505878;
+      color: var(--caption);
       font-style: italic;
       margin-bottom: 16px;
     }
 
     /* --- Callout block --- */
     .callout {
-      border-left: 2px solid #6fa3ef;
+      border-left: 2px solid var(--accent);
       padding: 12px 16px;
       margin: 16px 0 24px 0;
       font-size: 14px;
-      color: #a0a3b0;
-      background: #1e2235;
+      color: var(--text-desc);
+      background: var(--bg-card);
     }
 
     .callout strong {
-      color: #a3c4f3;
+      color: var(--accent-hover);
     }
 
     /* --- Module label --- */
@@ -220,7 +252,7 @@
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: #7b82a0;
+      color: var(--text-muted);
       text-transform: uppercase;
       margin-bottom: 8px;
     }
@@ -265,70 +297,70 @@
         <svg viewBox="0 0 680 310" width="680" height="310" xmlns="http://www.w3.org/2000/svg">
 
           <!-- ===== ROW 1: INDEX ===== -->
-          <text x="340" y="18" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 1 &mdash; INDEX</text>
+          <text x="340" y="18" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 1 &mdash; INDEX</text>
 
-          <rect x="10" y="36" width="120" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="70" y="56" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Bundle</text>
-          <text x="70" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF, DOCX, Excel</text>
+          <rect x="10" y="36" width="120" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="56" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Bundle</text>
+          <text x="70" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF, DOCX, Excel</text>
 
-          <line x1="130" y1="60" x2="165" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="130" y1="60" x2="165" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr2)"/>
 
-          <rect x="165" y="36" width="130" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="230" y="56" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Text Extraction</text>
-          <text x="230" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per page / sheet</text>
+          <rect x="165" y="36" width="130" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="230" y="56" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Text Extraction</text>
+          <text x="230" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per page / sheet</text>
 
-          <line x1="295" y1="60" x2="330" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="295" y1="60" x2="330" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr2)"/>
 
-          <rect x="330" y="36" width="160" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="410" y="56" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Span Classification</text>
-          <text x="410" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM &rarr; page-range spans</text>
+          <rect x="330" y="36" width="160" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="410" y="56" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Span Classification</text>
+          <text x="410" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM &rarr; page-range spans</text>
 
-          <line x1="490" y1="60" x2="525" y2="60" stroke="#444" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="490" y1="60" x2="525" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr2)"/>
 
-          <rect x="525" y="36" width="145" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="597" y="56" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Document Map</text>
-          <text x="597" y="72" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">SOW, GCC, BOQ, ...</text>
+          <rect x="525" y="36" width="145" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="597" y="56" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Document Map</text>
+          <text x="597" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">SOW, GCC, BOQ, ...</text>
 
           <!-- ===== Separator ===== -->
-          <line x1="10" y1="108" x2="670" y2="108" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+          <line x1="10" y1="108" x2="670" y2="108" stroke="#2a2d3d" stroke-width="1" stroke-dasharray="6,4"/>
 
           <!-- ===== ROW 2: EXTRACT ===== -->
-          <text x="340" y="130" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 2 &mdash; SCOPED EXTRACTION</text>
+          <text x="340" y="130" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PHASE 2 &mdash; SCOPED EXTRACTION</text>
 
-          <rect x="10" y="148" width="120" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="70" y="168" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Client Template</text>
-          <text x="70" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">.xlsx summary format</text>
+          <rect x="10" y="148" width="120" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="168" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Client Template</text>
+          <text x="70" y="184" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">.xlsx summary format</text>
 
-          <line x1="130" y1="172" x2="165" y2="172" stroke="#444" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="130" y1="172" x2="165" y2="172" stroke="#4a5270" stroke-width="1" marker-end="url(#arr2)"/>
 
-          <rect x="165" y="148" width="170" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="250" y="168" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Parallel Extraction</text>
-          <text x="250" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM per category, scoped spans</text>
+          <rect x="165" y="148" width="170" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="250" y="168" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Parallel Extraction</text>
+          <text x="250" y="184" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM per category, scoped spans</text>
 
-          <line x1="335" y1="172" x2="370" y2="172" stroke="#444" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="335" y1="172" x2="370" y2="172" stroke="#4a5270" stroke-width="1" marker-end="url(#arr2)"/>
 
-          <rect x="370" y="148" width="120" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="430" y="168" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Aggregate</text>
-          <text x="430" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">merge + validate</text>
+          <rect x="370" y="148" width="120" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="430" y="168" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Aggregate</text>
+          <text x="430" y="184" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">merge + validate</text>
 
-          <line x1="490" y1="172" x2="525" y2="172" stroke="#444" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="490" y1="172" x2="525" y2="172" stroke="#4a5270" stroke-width="1" marker-end="url(#arr2)"/>
 
-          <rect x="525" y="148" width="145" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="525" y="148" width="145" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="597" y="168" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Summary Report</text>
-          <text x="597" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Excel / DOCX / PDF</text>
+          <text x="597" y="184" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Excel / DOCX / PDF</text>
 
           <!-- ===== Separator 2 ===== -->
-          <line x1="10" y1="218" x2="670" y2="218" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+          <line x1="10" y1="218" x2="670" y2="218" stroke="#2a2d3d" stroke-width="1" stroke-dasharray="6,4"/>
 
           <!-- ===== ROW 3: OUTPUT STRUCTURE ===== -->
-          <text x="340" y="240" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">OUTPUT STRUCTURE</text>
+          <text x="340" y="240" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">OUTPUT STRUCTURE</text>
 
-          <rect x="60" y="256" width="560" height="36" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="340" y="279" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Every field: value &bull; remarks &bull; source citation (e.g., &ldquo;SOW | PAGE 5&rdquo;)</text>
+          <rect x="60" y="256" width="560" height="36" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="340" y="279" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Every field: value &bull; remarks &bull; source citation (e.g., &ldquo;SOW | PAGE 5&rdquo;)</text>
 
           <defs>
             <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6fa3ef"/>
             </marker>
           </defs>
         </svg>
@@ -421,106 +453,106 @@
       <div class="diagram-wrapper">
         <svg viewBox="0 0 680 470" width="680" height="470" xmlns="http://www.w3.org/2000/svg">
           <!-- V2 Pipeline -->
-          <text x="370" y="20" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">V2 PIPELINE &mdash; SEMANTIC CHUNKING + SCRATCHPAD</text>
+          <text x="370" y="20" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">V2 PIPELINE &mdash; SEMANTIC CHUNKING + SCRATCHPAD</text>
 
           <!-- BOQ input V2 -->
-          <rect x="10" y="50" width="90" height="56" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="55" y="72" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ</text>
-          <text x="55" y="88" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF / Excel</text>
+          <rect x="10" y="50" width="90" height="56" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="55" y="72" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ</text>
+          <text x="55" y="88" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF / Excel</text>
 
-          <line x1="100" y1="78" x2="120" y2="78" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="100" y1="78" x2="120" y2="78" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Stage 1 -->
-          <rect x="120" y="50" width="130" height="56" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="185" y="72" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Semantic Chunking</text>
-          <text x="185" y="92" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM &rarr; boundaries</text>
+          <rect x="120" y="50" width="130" height="56" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="185" y="72" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Semantic Chunking</text>
+          <text x="185" y="92" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">LLM &rarr; boundaries</text>
 
-          <line x1="250" y1="78" x2="270" y2="78" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="250" y1="78" x2="270" y2="78" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Stage 2 -->
-          <rect x="270" y="50" width="110" height="56" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="325" y="72" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Scratchpad</text>
-          <text x="325" y="92" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">interpret &amp; reason</text>
+          <rect x="270" y="50" width="110" height="56" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="325" y="72" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Scratchpad</text>
+          <text x="325" y="92" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">interpret &amp; reason</text>
 
-          <line x1="380" y1="78" x2="400" y2="78" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="380" y1="78" x2="400" y2="78" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Stage 3 -->
-          <rect x="400" y="50" width="130" height="56" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="465" y="72" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Variant Extraction</text>
-          <text x="465" y="92" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">structured items</text>
+          <rect x="400" y="50" width="130" height="56" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="465" y="72" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Variant Extraction</text>
+          <text x="465" y="92" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">structured items</text>
 
-          <line x1="530" y1="78" x2="550" y2="78" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="530" y1="78" x2="550" y2="78" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Stage 4 -->
-          <rect x="550" y="50" width="120" height="56" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="550" y="50" width="120" height="56" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="610" y="72" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Product Matching</text>
-          <text x="610" y="92" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">embed &rarr; rerank</text>
+          <text x="610" y="92" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">embed &rarr; rerank</text>
 
           <!-- Arrow down from Stage 4 to Stage 5 -->
-          <line x1="610" y1="106" x2="610" y2="130" stroke="#444" stroke-width="1"/>
-          <line x1="610" y1="130" x2="420" y2="130" stroke="#444" stroke-width="1"/>
-          <line x1="420" y1="130" x2="420" y2="150" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="610" y1="106" x2="610" y2="130" stroke="#4a5270" stroke-width="1"/>
+          <line x1="610" y1="130" x2="420" y2="130" stroke="#4a5270" stroke-width="1"/>
+          <line x1="420" y1="130" x2="420" y2="150" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Stage 5 — Tender Document Linking -->
-          <rect x="310" y="150" width="220" height="56" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="420" y="172" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Doc Linking</text>
-          <text x="420" y="188" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">semantic match to specs &amp; makes</text>
+          <rect x="310" y="150" width="220" height="56" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="420" y="172" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Doc Linking</text>
+          <text x="420" y="188" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">semantic match to specs &amp; makes</text>
 
           <!-- TDS input -->
-          <rect x="10" y="135" width="120" height="36" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="70" y="158" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">TDS spans (from index)</text>
+          <rect x="10" y="135" width="120" height="36" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="158" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">TDS spans (from index)</text>
 
-          <polyline points="130,153 220,153 220,168 310,168" fill="none" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <polyline points="130,153 220,153 220,168 310,168" fill="none" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Makes input -->
-          <rect x="10" y="192" width="120" height="36" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="70" y="215" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Approved Makes</text>
+          <rect x="10" y="192" width="120" height="36" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="215" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Approved Makes</text>
 
-          <polyline points="130,210 220,210 220,188 310,188" fill="none" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <polyline points="130,210 220,210 220,188 310,188" fill="none" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
           <!-- Output -->
-          <line x1="530" y1="178" x2="560" y2="178" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="530" y1="178" x2="560" y2="178" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
-          <rect x="560" y="150" width="110" height="56" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="560" y="150" width="110" height="56" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="615" y="168" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">RFQ Package</text>
-          <text x="615" y="184" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">item + spec + makes</text>
-          <text x="615" y="196" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">+ matched vendors</text>
+          <text x="615" y="184" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">item + spec + makes</text>
+          <text x="615" y="196" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">+ matched vendors</text>
 
           <!-- Separator -->
-          <line x1="10" y1="240" x2="670" y2="240" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+          <line x1="10" y1="240" x2="670" y2="240" stroke="#2a2d3d" stroke-width="1" stroke-dasharray="6,4"/>
 
           <!-- V1 comparison -->
-          <text x="370" y="268" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">V1 &mdash; FIXED CHUNKS + ROLLING HISTORY</text>
+          <text x="370" y="268" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">V1 &mdash; FIXED CHUNKS + ROLLING HISTORY</text>
 
           <!-- BOQ input V1 -->
-          <rect x="10" y="290" width="90" height="56" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="55" y="312" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ</text>
-          <text x="55" y="328" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF / Excel</text>
+          <rect x="10" y="290" width="90" height="56" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="55" y="312" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ</text>
+          <text x="55" y="328" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF / Excel</text>
 
-          <line x1="100" y1="318" x2="120" y2="318" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="100" y1="318" x2="120" y2="318" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
-          <rect x="120" y="290" width="150" height="56" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="120" y="290" width="150" height="56" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="195" y="312" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Fixed 30-Row Chunks</text>
-          <text x="195" y="332" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">sequential + context fwd</text>
+          <text x="195" y="332" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">sequential + context fwd</text>
 
-          <line x1="270" y1="318" x2="290" y2="318" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="270" y1="318" x2="290" y2="318" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
-          <rect x="290" y="290" width="150" height="56" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="365" y="312" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Block Extraction</text>
-          <text x="365" y="332" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">single-pass per chunk</text>
+          <rect x="290" y="290" width="150" height="56" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="365" y="312" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Block Extraction</text>
+          <text x="365" y="332" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">single-pass per chunk</text>
 
-          <line x1="440" y1="318" x2="460" y2="318" stroke="#444" stroke-width="1" marker-end="url(#arr3)"/>
+          <line x1="440" y1="318" x2="460" y2="318" stroke="#4a5270" stroke-width="1" marker-end="url(#arr3)"/>
 
-          <rect x="460" y="290" width="130" height="56" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="460" y="290" width="130" height="56" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="525" y="312" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Product Matching</text>
-          <text x="525" y="332" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">embed &rarr; rerank</text>
+          <text x="525" y="332" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">embed &rarr; rerank</text>
 
           <!-- Evolution arrow -->
-          <text x="370" y="400" text-anchor="middle" fill="#444" font-size="11" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">V1 &rarr; V2: semantic boundaries + scratchpad reasoning + hierarchy extraction</text>
+          <text x="370" y="400" text-anchor="middle" fill="#4a5270" font-size="11" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">V1 &rarr; V2: semantic boundaries + scratchpad reasoning + hierarchy extraction</text>
 
           <defs>
             <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6fa3ef"/>
             </marker>
           </defs>
         </svg>
@@ -601,36 +633,36 @@
       <div class="diagram-wrapper">
         <svg viewBox="0 0 680 120" width="680" height="120" xmlns="http://www.w3.org/2000/svg">
 
-          <rect x="5" y="46" width="100" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="55" y="66" text-anchor="middle" fill="#555" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Quote</text>
-          <text x="55" y="82" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF</text>
+          <rect x="5" y="46" width="100" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="55" y="66" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Quote</text>
+          <text x="55" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF</text>
 
-          <line x1="105" y1="70" x2="125" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <line x1="105" y1="70" x2="125" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <rect x="125" y="46" width="120" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="185" y="66" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">VLM / OCR Extract</text>
-          <text x="185" y="82" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">structured products</text>
+          <rect x="125" y="46" width="120" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="185" y="66" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">VLM / OCR Extract</text>
+          <text x="185" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">structured products</text>
 
-          <line x1="245" y1="70" x2="275" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <line x1="245" y1="70" x2="275" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <rect x="275" y="46" width="155" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="352" y="66" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Compare vs RFQ</text>
-          <text x="352" y="82" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">match, deviate, or missing</text>
+          <rect x="275" y="46" width="155" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="352" y="66" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Compare vs RFQ</text>
+          <text x="352" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">match, deviate, or missing</text>
 
           <!-- RFQ input from above -->
-          <rect x="310" y="4" width="80" height="22" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="350" y="19" text-anchor="middle" fill="#555" font-size="10" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">RFQ</text>
-          <line x1="350" y1="26" x2="350" y2="46" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="310" y="4" width="80" height="22" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="350" y="19" text-anchor="middle" fill="#505878" font-size="10" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">RFQ</text>
+          <line x1="350" y1="26" x2="350" y2="46" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <line x1="430" y1="70" x2="460" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arr5)"/>
+          <line x1="430" y1="70" x2="460" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <rect x="460" y="46" width="140" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="460" y="46" width="140" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="530" y="66" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Flagged Comparison</text>
-          <text x="530" y="82" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per-product status</text>
+          <text x="530" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per-product status</text>
 
           <defs>
             <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6fa3ef"/>
             </marker>
           </defs>
         </svg>
@@ -639,5 +671,7 @@
     </div>
 
   </div>
+<button id="theme-toggle" style="position:fixed;top:16px;right:16px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);padding:6px 10px;cursor:pointer;font-size:13px;font-family:inherit;z-index:100;border-radius:4px;" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');this.textContent=document.body.classList.contains('light')?'Dark':'Light'">Light</button>
+<script>if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.getElementById('theme-toggle').textContent='Dark';}</script>
 </body>
 </html>

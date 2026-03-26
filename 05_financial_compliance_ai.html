@@ -5,11 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Study: AI for Financial Compliance</title>
   <style>
+    :root {
+      --bg: #1a1d2e;
+      --bg-card: #1e2235;
+      --bg-tag: #242840;
+      --text: #c8c9cd;
+      --text-bright: #e8e6e3;
+      --text-muted: #7b82a0;
+      --text-desc: #a0a3b0;
+      --accent: #6fa3ef;
+      --accent-hover: #a3c4f3;
+      --border: #2a2d3d;
+      --border-hover: #4a5270;
+      --separator: #353a50;
+      --caption: #505878;
+    }
+
+    body.light {
+      --bg: #f5f6f8;
+      --bg-card: #ffffff;
+      --bg-tag: #e8eaf0;
+      --text: #374151;
+      --text-bright: #111827;
+      --text-muted: #6b7280;
+      --text-desc: #4b5563;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border: #d1d5db;
+      --border-hover: #9ca3af;
+      --separator: #e5e7eb;
+      --caption: #9ca3af;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #1a1d2e;
-      color: #c8c9cd;
+      background: var(--bg);
+      color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       line-height: 1.8;
       padding: 0;
@@ -24,7 +56,7 @@
     h1 {
       font-size: 28px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 24px;
     }
 
@@ -34,18 +66,18 @@
 
     .meta-item {
       font-size: 14px;
-      color: #7b82a0;
+      color: var(--text-muted);
       margin-bottom: 4px;
     }
 
     .meta-item a {
-      color: #6fa3ef;
+      color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
     .meta-item a:hover {
-      color: #a3c4f3;
+      color: var(--accent-hover);
     }
 
     /* --- Sections --- */
@@ -56,17 +88,17 @@
     h2 {
       font-size: 18px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 16px;
       text-decoration: underline;
       text-underline-offset: 4px;
-      text-decoration-color: #353a50;
+      text-decoration-color: var(--separator);
     }
 
     h3 {
       font-size: 15px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 8px;
     }
 
@@ -76,7 +108,7 @@
     }
 
     strong {
-      color: #e8e6e3;
+      color: var(--text-bright);
       font-weight: 600;
     }
 
@@ -97,7 +129,7 @@
       content: "\2014";
       position: absolute;
       left: 0;
-      color: #4a5270;
+      color: var(--border-hover);
     }
 
     ul li ul {
@@ -111,12 +143,12 @@
     ul li ul li::before {
       content: "\2014";
       left: 4px;
-      color: #353a50;
+      color: var(--separator);
     }
 
     /* --- Diagram --- */
     .diagram-wrapper {
-      border: 1px solid #2a2d3d;
+      border: 1px solid var(--border);
       padding: 32px 16px;
       margin: 24px 0;
       overflow-x: auto;
@@ -130,7 +162,7 @@
     .diagram-caption {
       text-align: center;
       font-size: 13px;
-      color: #505878;
+      color: var(--caption);
       margin-top: 12px;
     }
 
@@ -145,15 +177,15 @@
     thead th {
       text-align: left;
       padding: 10px 12px;
-      border-bottom: 2px solid #353a50;
+      border-bottom: 2px solid var(--separator);
       font-weight: 700;
       font-size: 13px;
-      color: #6fa3ef;
+      color: var(--accent);
     }
 
     tbody td {
       padding: 10px 12px;
-      border-bottom: 1px solid #2a2d3d;
+      border-bottom: 1px solid var(--border);
       vertical-align: top;
     }
 
@@ -165,14 +197,14 @@
       font-weight: 700;
       white-space: nowrap;
       width: 190px;
-      color: #6fa3ef;
+      color: var(--accent);
     }
 
     code {
-      background: #242840;
+      background: var(--bg-tag);
       padding: 1px 6px;
       font-size: 13px;
-      color: #a0b4d0;
+      color: var(--text-desc);
       font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
     }
 
@@ -188,23 +220,23 @@
     .metric-value {
       font-size: 24px;
       font-weight: 700;
-      color: #e8e6e3;
+      color: var(--text-bright);
     }
 
     .metric-label {
       font-size: 14px;
-      color: #7b82a0;
+      color: var(--text-muted);
     }
 
     /* --- Divider --- */
     hr {
       border: none;
-      border-top: 1px solid #2a2d3d;
+      border-top: 1px solid var(--border);
       margin: 48px 0;
     }
 
     a {
-      color: #6fa3ef;
+      color: var(--accent);
     }
 
     /* --- Module label --- */
@@ -212,7 +244,7 @@
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: #7b82a0;
+      color: var(--text-muted);
       text-transform: uppercase;
       margin-bottom: 8px;
     }
@@ -279,36 +311,36 @@
       <!-- Pipeline diagram -->
       <div class="diagram-wrapper">
         <svg viewBox="0 0 680 100" width="680" height="100" xmlns="http://www.w3.org/2000/svg">
-          <rect x="5" y="26" width="110" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="5" y="26" width="110" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="60" y="46" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EU Press Releases</text>
-          <text x="60" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">journals, gazettes</text>
+          <text x="60" y="62" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">journals, gazettes</text>
 
-          <line x1="115" y1="50" x2="130" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+          <line x1="115" y1="50" x2="130" y2="50" stroke="#4a5270" stroke-width="1" marker-end="url(#arr4)"/>
 
-          <rect x="130" y="26" width="100" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="180" y="46" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Monitor</text>
-          <text x="180" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">detect publications</text>
+          <rect x="130" y="26" width="100" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="180" y="46" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Monitor</text>
+          <text x="180" y="62" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">detect publications</text>
 
-          <line x1="230" y1="50" x2="245" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+          <line x1="230" y1="50" x2="245" y2="50" stroke="#4a5270" stroke-width="1" marker-end="url(#arr4)"/>
 
-          <rect x="245" y="26" width="145" height="48" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="317" y="46" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Extractor</text>
-          <text x="317" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">format-aware LLM workflow</text>
+          <rect x="245" y="26" width="145" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="317" y="46" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Extractor</text>
+          <text x="317" y="62" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">format-aware LLM workflow</text>
 
-          <line x1="390" y1="50" x2="405" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+          <line x1="390" y1="50" x2="405" y2="50" stroke="#4a5270" stroke-width="1" marker-end="url(#arr4)"/>
 
-          <rect x="405" y="26" width="130" height="48" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+          <rect x="405" y="26" width="130" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
           <text x="470" y="46" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Structured Records</text>
-          <text x="470" y="62" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">entities, dates, types</text>
+          <text x="470" y="62" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">entities, dates, types</text>
 
-          <line x1="535" y1="50" x2="555" y2="50" stroke="#444" stroke-width="1" marker-end="url(#arr4)"/>
+          <line x1="535" y1="50" x2="555" y2="50" stroke="#4a5270" stroke-width="1" marker-end="url(#arr4)"/>
 
-          <rect x="555" y="26" width="105" height="48" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="607" y="54" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">FacctList</text>
+          <rect x="555" y="26" width="105" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="607" y="54" text-anchor="middle" fill="#505878" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">FacctList</text>
 
           <defs>
             <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6fa3ef"/>
             </marker>
           </defs>
         </svg>
@@ -457,5 +489,7 @@
     </div>
 
   </div>
+<button id="theme-toggle" style="position:fixed;top:16px;right:16px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);padding:6px 10px;cursor:pointer;font-size:13px;font-family:inherit;z-index:100;border-radius:4px;" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');this.textContent=document.body.classList.contains('light')?'Dark':'Light'">Light</button>
+<script>if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.getElementById('theme-toggle').textContent='Dark';}</script>
 </body>
 </html>

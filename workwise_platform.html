@@ -5,11 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workwise AI &mdash; Procurement &amp; Estimation Platform</title>
   <style>
+    :root {
+      --bg: #1a1d2e;
+      --bg-card: #1e2235;
+      --bg-tag: #242840;
+      --text: #c8c9cd;
+      --text-bright: #e8e6e3;
+      --text-muted: #7b82a0;
+      --text-desc: #a0a3b0;
+      --accent: #6fa3ef;
+      --accent-hover: #a3c4f3;
+      --border: #2a2d3d;
+      --border-hover: #4a5270;
+      --separator: #353a50;
+      --caption: #505878;
+    }
+
+    body.light {
+      --bg: #f5f6f8;
+      --bg-card: #ffffff;
+      --bg-tag: #e8eaf0;
+      --text: #374151;
+      --text-bright: #111827;
+      --text-muted: #6b7280;
+      --text-desc: #4b5563;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border: #d1d5db;
+      --border-hover: #9ca3af;
+      --separator: #e5e7eb;
+      --caption: #9ca3af;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #1a1d2e;
-      color: #c8c9cd;
+      background: var(--bg);
+      color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       line-height: 1.8;
       padding: 0;
@@ -24,13 +56,13 @@
     h1 {
       font-size: 28px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 8px;
     }
 
     .subtitle {
       font-size: 15px;
-      color: #7b82a0;
+      color: var(--text-muted);
       margin-bottom: 48px;
       line-height: 1.6;
     }
@@ -38,17 +70,17 @@
     h2 {
       font-size: 18px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 16px;
       text-decoration: underline;
       text-underline-offset: 4px;
-      text-decoration-color: #353a50;
+      text-decoration-color: var(--separator);
     }
 
     h3 {
       font-size: 15px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 8px;
     }
 
@@ -58,18 +90,18 @@
     }
 
     strong {
-      color: #e8e6e3;
+      color: var(--text-bright);
       font-weight: 600;
     }
 
     a {
-      color: #6fa3ef;
+      color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
     a:hover {
-      color: #a3c4f3;
+      color: var(--accent-hover);
     }
 
     /* --- Sections --- */
@@ -94,12 +126,12 @@
       content: "\2014";
       position: absolute;
       left: 0;
-      color: #4a5270;
+      color: var(--border-hover);
     }
 
     /* --- Diagram --- */
     .diagram-wrapper {
-      border: 1px solid #2a2d3d;
+      border: 1px solid var(--border);
       padding: 32px 16px;
       margin: 24px 0;
       overflow-x: auto;
@@ -113,29 +145,29 @@
     .diagram-caption {
       text-align: center;
       font-size: 13px;
-      color: #505878;
+      color: var(--caption);
       margin-top: 12px;
     }
 
     /* --- Divider --- */
     hr {
       border: none;
-      border-top: 1px solid #2a2d3d;
+      border-top: 1px solid var(--border);
       margin: 48px 0;
     }
 
     /* --- Callout --- */
     .callout {
-      border-left: 2px solid #6fa3ef;
+      border-left: 2px solid var(--accent);
       padding: 12px 16px;
       margin: 16px 0 24px 0;
       font-size: 14px;
-      color: #a0a3b0;
-      background: #1e2235;
+      color: var(--text-desc);
+      background: var(--bg-card);
     }
 
     .callout strong {
-      color: #a3c4f3;
+      color: var(--accent-hover);
     }
 
     /* --- Module cards --- */
@@ -147,26 +179,26 @@
     }
 
     .module-card {
-      border: 1px solid #2a2d3d;
+      border: 1px solid var(--border);
       padding: 16px 20px;
-      background: #1e2235;
+      background: var(--bg-card);
       transition: border-color 0.2s;
     }
 
     .module-card:hover {
-      border-color: #4a5270;
+      border-color: var(--border-hover);
     }
 
     .module-card-title {
       font-size: 15px;
       font-weight: 600;
-      color: #e8e6e3;
+      color: var(--text-bright);
       margin-bottom: 4px;
     }
 
     .module-card-desc {
       font-size: 13px;
-      color: #7b82a0;
+      color: var(--text-muted);
       line-height: 1.6;
     }
 
@@ -174,7 +206,7 @@
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 2px;
-      color: #505878;
+      color: var(--caption);
       text-transform: uppercase;
       margin-bottom: 6px;
     }
@@ -182,8 +214,8 @@
     .wip-badge {
       font-size: 10px;
       font-weight: 700;
-      color: #7b82a0;
-      background: #242840;
+      color: var(--text-muted);
+      background: var(--bg-tag);
       padding: 1px 6px;
       margin-left: 6px;
       vertical-align: middle;
@@ -195,23 +227,23 @@
 
     .meta-item {
       font-size: 14px;
-      color: #7b82a0;
+      color: var(--text-muted);
       margin-bottom: 4px;
     }
 
     .back-link {
       font-size: 13px;
-      color: #7b82a0;
+      color: var(--text-muted);
       margin-bottom: 24px;
       display: block;
     }
 
     .back-link a {
-      color: #7b82a0;
+      color: var(--text-muted);
     }
 
     .back-link a:hover {
-      color: #6fa3ef;
+      color: var(--accent);
     }
   </style>
 </head>
@@ -245,118 +277,118 @@
         <svg viewBox="0 0 700 540" width="700" height="540" xmlns="http://www.w3.org/2000/svg">
 
           <!-- ===== TENDERING AUTHORITY ===== -->
-          <text x="350" y="20" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">TENDERING AUTHORITY</text>
-          <text x="350" y="35" text-anchor="middle" fill="#444" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Floats tenders, evaluates bids from vendors</text>
+          <text x="350" y="20" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">TENDERING AUTHORITY</text>
+          <text x="350" y="35" text-anchor="middle" fill="#4a5270" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Floats tenders, evaluates bids from vendors</text>
 
           <!-- Float Tender -->
-          <rect x="30" y="50" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="80" y="74" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Floats Tender</text>
+          <rect x="30" y="50" width="100" height="40" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="80" y="74" text-anchor="middle" fill="#505878" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Floats Tender</text>
 
-          <line x1="130" y1="70" x2="160" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="130" y1="70" x2="160" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Tech Eval -->
-          <rect x="160" y="50" width="140" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="230" y="74" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tech Eval</text>
+          <rect x="160" y="50" width="140" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="230" y="74" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tech Eval</text>
 
-          <line x1="300" y1="70" x2="330" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="300" y1="70" x2="330" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Financial Eval -->
-          <rect x="330" y="50" width="140" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="400" y="74" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Financial Eval</text>
+          <rect x="330" y="50" width="140" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="400" y="74" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Financial Eval</text>
 
-          <line x1="470" y1="70" x2="500" y2="70" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="470" y1="70" x2="500" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Award -->
-          <rect x="500" y="50" width="110" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="555" y="74" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Award Contract</text>
+          <rect x="500" y="50" width="110" height="40" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="555" y="74" text-anchor="middle" fill="#505878" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Award Contract</text>
 
           <!-- ===== Separator ===== -->
-          <line x1="10" y1="115" x2="690" y2="115" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+          <line x1="10" y1="115" x2="690" y2="115" stroke="#2a2d3d" stroke-width="1" stroke-dasharray="6,4"/>
 
           <!-- ===== EPC COMPANY ===== -->
-          <text x="350" y="140" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EPC COMPANY</text>
-          <text x="350" y="155" text-anchor="middle" fill="#444" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Bids on tenders, manages procurement for projects</text>
+          <text x="350" y="140" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EPC COMPANY</text>
+          <text x="350" y="155" text-anchor="middle" fill="#4a5270" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Bids on tenders, manages procurement for projects</text>
 
           <!-- Row 1: Tender → Summary → BOQ-to-RFQ → Vendor Inquiries -->
-          <rect x="20" y="175" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="70" y="199" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Receives Tender</text>
+          <rect x="20" y="175" width="100" height="40" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="199" text-anchor="middle" fill="#505878" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Receives Tender</text>
 
-          <line x1="120" y1="195" x2="150" y2="195" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="120" y1="195" x2="150" y2="195" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Tender Summary -->
-          <rect x="150" y="175" width="130" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="215" y="199" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Summary</text>
+          <rect x="150" y="175" width="130" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="215" y="199" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Tender Summary</text>
 
-          <line x1="280" y1="195" x2="320" y2="195" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
-          <text x="300" y="186" text-anchor="middle" fill="#444" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">go/no-go</text>
+          <line x1="280" y1="195" x2="320" y2="195" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
+          <text x="300" y="186" text-anchor="middle" fill="#4a5270" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">go/no-go</text>
 
           <!-- BOQ-to-RFQ -->
-          <rect x="320" y="175" width="130" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="385" y="199" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ-to-RFQ</text>
+          <rect x="320" y="175" width="130" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="385" y="199" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">BOQ-to-RFQ</text>
 
-          <line x1="450" y1="195" x2="480" y2="195" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="450" y1="195" x2="480" y2="195" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Vendor Inquiries -->
-          <rect x="480" y="175" width="120" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="540" y="199" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Inquiries</text>
+          <rect x="480" y="175" width="120" height="40" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="540" y="199" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Inquiries</text>
 
           <!-- Row 2: Quotes → Quotation Parsing → Cost Estimation → Submit Bid -->
-          <rect x="20" y="250" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="70" y="274" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotes Return</text>
+          <rect x="20" y="250" width="100" height="40" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="70" y="274" text-anchor="middle" fill="#505878" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotes Return</text>
 
-          <line x1="120" y1="270" x2="150" y2="270" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="120" y1="270" x2="150" y2="270" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Quotation Parsing -->
-          <rect x="150" y="250" width="150" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="225" y="267" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotation Parsing</text>
-          <text x="225" y="283" text-anchor="middle" fill="#555" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
+          <rect x="150" y="250" width="150" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="225" y="267" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotation Parsing</text>
+          <text x="225" y="283" text-anchor="middle" fill="#505878" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
 
-          <line x1="300" y1="270" x2="330" y2="270" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="300" y1="270" x2="330" y2="270" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Cost Estimation -->
-          <rect x="330" y="250" width="140" height="40" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="400" y="267" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Cost Estimation</text>
-          <text x="400" y="283" text-anchor="middle" fill="#555" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
+          <rect x="330" y="250" width="140" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="400" y="267" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Cost Estimation</text>
+          <text x="400" y="283" text-anchor="middle" fill="#505878" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
 
-          <line x1="470" y1="270" x2="500" y2="270" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
+          <line x1="470" y1="270" x2="500" y2="270" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Submit Bid -->
-          <rect x="500" y="250" width="100" height="40" rx="2" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="550" y="274" text-anchor="middle" fill="#555" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Submit Bid</text>
+          <rect x="500" y="250" width="100" height="40" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="550" y="274" text-anchor="middle" fill="#505878" font-size="11" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Submit Bid</text>
 
           <!-- EPC also uses Tech Eval + Financial Eval -->
-          <text x="350" y="325" text-anchor="middle" fill="#444" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EPC companies also evaluate their own vendors&rsquo; bids using Tech Eval + Financial Eval</text>
+          <text x="350" y="325" text-anchor="middle" fill="#4a5270" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">EPC companies also evaluate their own vendors&rsquo; bids using Tech Eval + Financial Eval</text>
 
           <!-- ===== Separator ===== -->
-          <line x1="10" y1="355" x2="690" y2="355" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="6,4"/>
+          <line x1="10" y1="355" x2="690" y2="355" stroke="#2a2d3d" stroke-width="1" stroke-dasharray="6,4"/>
 
           <!-- ===== INTERNAL PLATFORM ===== -->
-          <text x="350" y="382" text-anchor="middle" fill="#6b7280" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">INTERNAL PLATFORM</text>
-          <text x="350" y="397" text-anchor="middle" fill="#444" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Shared data layer powering all workflows above</text>
+          <text x="350" y="382" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">INTERNAL PLATFORM</text>
+          <text x="350" y="397" text-anchor="middle" fill="#4a5270" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Shared data layer powering all workflows above</text>
 
           <!-- Catalog Parsing (left — upstream) -->
-          <rect x="100" y="416" width="200" height="50" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="200" y="438" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Catalog Parsing</text>
-          <text x="200" y="456" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF catalogs &rarr; structured data</text>
+          <rect x="100" y="416" width="200" height="50" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="200" y="438" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Catalog Parsing</text>
+          <text x="200" y="456" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF catalogs &rarr; structured data</text>
 
           <!-- Arrow: Catalog → Product DB -->
-          <line x1="300" y1="441" x2="380" y2="441" stroke="#444" stroke-width="1" marker-end="url(#arrWk)"/>
-          <text x="340" y="433" text-anchor="middle" fill="#444" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">feeds into</text>
+          <line x1="300" y1="441" x2="380" y2="441" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
+          <text x="340" y="433" text-anchor="middle" fill="#4a5270" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">feeds into</text>
 
           <!-- Product DB (right — downstream) -->
-          <rect x="380" y="416" width="220" height="50" rx="2" fill="#222424" stroke="#333" stroke-width="1.5"/>
-          <text x="490" y="438" text-anchor="middle" fill="#8b9dc3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Product &amp; Vendor Database</text>
-          <text x="490" y="456" text-anchor="middle" fill="#555" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">7,000+ products, 20,000+ vendors</text>
+          <rect x="380" y="416" width="220" height="50" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="490" y="438" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Product &amp; Vendor Database</text>
+          <text x="490" y="456" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">7,000+ products, 20,000+ vendors</text>
 
           <!-- Upward connection from Product DB to EPC workflows -->
-          <line x1="490" y1="416" x2="490" y2="356" stroke="#333" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="505" y="390" text-anchor="start" fill="#444" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">product matching,</text>
-          <text x="505" y="402" text-anchor="start" fill="#444" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">vendor lookup</text>
+          <line x1="490" y1="416" x2="490" y2="356" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="505" y="390" text-anchor="start" fill="#4a5270" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">product matching,</text>
+          <text x="505" y="402" text-anchor="start" fill="#4a5270" font-size="9" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">vendor lookup</text>
 
           <!-- Arrow defs -->
           <defs>
             <marker id="arrWk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b9dc3"/>
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6fa3ef"/>
             </marker>
           </defs>
         </svg>
@@ -416,5 +448,7 @@
     </div>
 
   </div>
+<button id="theme-toggle" style="position:fixed;top:16px;right:16px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);padding:6px 10px;cursor:pointer;font-size:13px;font-family:inherit;z-index:100;border-radius:4px;" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');this.textContent=document.body.classList.contains('light')?'Dark':'Light'">Light</button>
+<script>if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.getElementById('theme-toggle').textContent='Dark';}</script>
 </body>
 </html>
