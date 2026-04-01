@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workwise AI &mdash; Procurement &amp; Estimation Platform</title>
-  <meta name="description" content="6+ AI systems for infrastructure procurement — tender summary, BOQ-to-RFQ, bid evaluation, quotation parsing, product catalog. Built by Arbaz Shaikh.">
-  <meta property="og:title" content="Workwise AI — Procurement & Estimation Platform">
-  <meta property="og:description" content="End-to-end AI for infrastructure procurement. Tender eval from 6 hours to 3 minutes. 7,000+ product catalog.">
-  <meta property="og:type" content="article">
   <style>
     :root {
       --bg: #1a1d2e;
@@ -254,7 +250,7 @@
 <body>
   <div class="container">
 
-    <div class="back-link"><a href="../">&larr; Portfolio</a></div>
+    <div class="back-link"><a href="index.html">&larr; Portfolio</a></div>
 
     <h1>Workwise AI</h1>
     <div class="meta">
@@ -267,7 +263,7 @@
     <!-- ============================================ -->
 
     <div class="section">
-      <p>Infrastructure procurement runs on manual document work &mdash; tenders, BOQs, vendor inquiries, quotes, bid evaluation. I built the AI systems that automate each step.</p>
+      <p>Infrastructure procurement is a long chain &mdash; tenders get published, companies decide whether to bid, BOQs get broken into vendor inquiries, quotes come back, costs get estimated, bids get submitted, and then the tendering authority evaluates everything. Most of this chain runs on manual document work. I built the AI systems that automate each step.</p>
     </div>
 
     <!-- ============================================ -->
@@ -344,13 +340,15 @@
 
           <!-- Quotation Parsing -->
           <rect x="150" y="250" width="150" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
-          <text x="225" y="274" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotation Parsing</text>
+          <text x="225" y="267" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quotation Parsing</text>
+          <text x="225" y="283" text-anchor="middle" fill="#505878" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
 
           <line x1="300" y1="270" x2="330" y2="270" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
           <!-- Cost Estimation -->
           <rect x="330" y="250" width="140" height="40" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
-          <text x="400" y="274" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Cost Estimation</text>
+          <text x="400" y="267" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Cost Estimation</text>
+          <text x="400" y="283" text-anchor="middle" fill="#505878" font-size="9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">WIP</text>
 
           <line x1="470" y1="270" x2="500" y2="270" stroke="#4a5270" stroke-width="1" marker-end="url(#arrWk)"/>
 
@@ -405,17 +403,17 @@
     <div class="section">
       <h2>How It Fits Together</h2>
 
-      <p><strong>Tendering Authority:</strong> After vendors submit bids, the platform runs automated Technical Evaluation (compliance checking, scoring) and Financial Evaluation (price comparison, ranking). Days of committee review &rarr; structured reports in minutes.</p>
+      <p>The <strong>Tendering Authority</strong> side is straightforward &mdash; after vendors submit bids, the platform runs automated <strong>Technical Evaluation</strong> (compliance checking, scoring) and <strong>Financial Evaluation</strong> (price comparison, loading factors, ranking). What took a committee days of manual review produces structured reports in minutes.</p>
 
-      <p><strong>EPC Company</strong> &mdash; where the complexity lives:</p>
+      <p>The <strong>EPC Company</strong> side is where the complexity lives. An EPC receives a tender with 10&ndash;30 documents and needs to decide whether to bid, then execute the entire procurement chain if they do:</p>
       <ul>
-        <li><strong>Tender Summary</strong> &mdash; extracts scope, eligibility, and commercial terms from 10&ndash;30 documents. Go/no-go decision without reading hundreds of pages</li>
-        <li><strong>BOQ-to-RFQ</strong> &mdash; semantic chunking + scratchpad reasoning to interpret BOQ line items and produce vendor-ready RFQ packages with matched products, spec sheets, and approved makes</li>
-        <li><strong>Quotation Parsing</strong> &mdash; VLM extraction from returned quotes, semantically matched against RFQ requirements. Flags matches, deviations, and missing items</li>
-        <li><strong>Cost Estimation</strong> &mdash; aggregates parsed quotes with historical pricing for the final bid estimate</li>
+        <li><strong>Tender Summary</strong> extracts scope, timelines, eligibility, and commercial terms from the full tender package &mdash; the team makes a <strong>go/no-go decision</strong> without reading hundreds of pages</li>
+        <li><strong>BOQ-to-RFQ</strong> is the hardest step &mdash; interpreting each BOQ line item requires domain expertise that traditionally bottlenecks on experienced engineers. The pipeline uses semantic chunking, a scratchpad reasoning step, and structured extraction to produce <strong>vendor-ready RFQ packages</strong> with matched products, spec sheets, and approved makes</li>
+        <li>RFQs go out to vendors. <strong>Quotation Parsing</strong> <em>(WIP)</em> will extract structured data from returned quotes and compare against RFQ requirements &mdash; flagging matches, deviations, and missing products</li>
+        <li><strong>Cost Estimation</strong> <em>(WIP)</em> will aggregate parsed quotes with historical pricing to produce the final bid estimate</li>
       </ul>
 
-      <p>Everything depends on the <strong>Product &amp; Vendor Database</strong> (7,000+ deduplicated products, 20,000+ vendor associations) and <strong>Catalog Parsing</strong> (PDF catalogs &rarr; structured data via self-hosted OCR). EPC companies also use Tech Eval + Financial Eval on their own vendors&rsquo; bids.</p>
+      <p>Everything above depends on the <strong>Product &amp; Vendor Database</strong> &mdash; 7,000+ deduplicated products with structured specs and 20,000+ vendor associations. An LLM pipeline classifies, extracts, normalizes, and deduplicates products from any source. <strong>Catalog Parsing</strong> handles the upstream bottleneck: turning vendor PDF catalogs into structured data the pipeline can ingest. EPC companies also use <strong>Tech Eval + Financial Eval</strong> to evaluate their own vendors&rsquo; bids &mdash; same system, different context.</p>
     </div>
 
     <hr>
@@ -426,22 +424,22 @@
 
     <div class="section">
       <h2>Deep Dives</h2>
-      <p>Click through for the full design story.</p>
+      <p>Each case study walks through the problem, design, key decisions, and results. Click through for the full story.</p>
 
       <div class="module-grid">
-        <a href="../doc-intelligence/" class="module-card" style="text-decoration:none;">
+        <a href="03_procurement_doc_intelligence.html" class="module-card" style="text-decoration:none;">
           <div class="module-card-label">Procurement Doc Intelligence</div>
           <div class="module-card-title">Tender Summary + BOQ-to-RFQ + Quotation Parsing</div>
-          <div class="module-card-desc">Span classification for document indexing, semantic chunking with scratchpad interpretation for BOQ processing, product matching via embed + LLM rerank, VLM-based quotation parsing, and tender document linking.</div>
+          <div class="module-card-desc">Span classification for document indexing, semantic chunking with scratchpad interpretation for BOQ processing, product matching via embed + LLM rerank, and tender document linking. Includes the V1 &rarr; V2 evolution story.</div>
         </a>
 
-        <a href="../product-intelligence/" class="module-card" style="text-decoration:none;">
+        <a href="04_product_intelligence_vendor_platform.html" class="module-card" style="text-decoration:none;">
           <div class="module-card-label">Product Intelligence</div>
           <div class="module-card-title">Product &amp; Vendor Database + Catalog Parsing</div>
           <div class="module-card-desc">LLM pipeline that classifies, extracts, normalizes, and deduplicates products into a self-improving catalog. Plus self-hosted PaddleOCR for extracting structured tables from vendor PDF catalogs.</div>
         </a>
 
-        <a href="../bid-evaluation/" class="module-card" style="text-decoration:none;">
+        <a href="02_vendor_bid_evaluation.html" class="module-card" style="text-decoration:none;">
           <div class="module-card-label">Vendor Evaluation</div>
           <div class="module-card-title">Technical &amp; Financial Bid Evaluation</div>
           <div class="module-card-desc">Automated compliance checking, scoring, and comparative analysis of vendor bids against tender requirements.</div>

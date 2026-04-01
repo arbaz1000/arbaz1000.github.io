@@ -3,14 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arbaz Shaikh &mdash; Industrial AI Consultant</title>
-  <meta name="description" content="I build production AI systems for companies — LLM pipelines, document intelligence, structured extraction, compliance automation. Available for consulting.">
-  <meta property="og:title" content="Arbaz Shaikh — Industrial AI Consultant">
-  <meta property="og:description" content="Production AI systems for procurement, compliance, and document intelligence. 8+ systems shipped, real metrics, global clients.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Arbaz Shaikh — Industrial AI Consultant">
-  <meta name="twitter:description" content="Production AI systems for procurement, compliance, and document intelligence. Available for consulting.">
+  <title>Arbaz Shaikh &mdash; AI Engineering Portfolio</title>
   <style>
     :root {
       --bg: #1a1d2e;
@@ -271,21 +264,21 @@
   <div class="container">
 
     <h1>Arbaz Shaikh</h1>
-    <p class="subtitle">I build production AI systems that replace manual document work &mdash; for procurement, compliance, and operations. Available for consulting.</p>
+    <p class="subtitle">AI/ML engineer. I build production AI systems &mdash; LLM pipelines, document intelligence, structured extraction, compliance automation. This portfolio walks through the hard technical problems behind each system and the design decisions that made them work.</p>
     <div class="credentials">
       <span>IIT Bombay &mdash; Dual Degree, EE + Signal Processing</span>
       <span class="sep">|</span>
-      <a href="time-series/" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">Patent holder</a>
+      <span>Patent holder</span>
       <span class="sep">|</span>
-      <span>Swiss Mobility Scholar (Geneva, KU Leuven)</span>
+      <span>Swiss Mobility Scholar</span>
       <span class="sep">|</span>
       <span>Built AI functions from zero at two startups</span>
     </div>
 
     <div style="margin-bottom: 48px; font-size: 13px;">
-      <a href="mailto:arbazsh10@gmail.com" style="color: var(--accent); margin-right: 16px;">arbazsh10@gmail.com</a>
-      <a href="https://www.linkedin.com/in/~arbazshaikh/" target="_blank" style="color: var(--accent); margin-right: 16px;">LinkedIn</a>
-      <a href="Arbaz_Shaikh.pdf" target="_blank" style="color: var(--accent);">Resume</a>
+      <a href="Arbaz_Shaikh.pdf" target="_blank" style="color: #6fa3ef; margin-right: 16px;">Resume</a>
+      <a href="https://www.linkedin.com/in/~arbazshaikh/" target="_blank" style="color: #6fa3ef; margin-right: 16px;">LinkedIn</a>
+      <a href="mailto:arbazsh10@gmail.com" style="color: #6fa3ef;">arbazsh10@gmail.com</a>
     </div>
 
     <!-- ============================================ -->
@@ -334,14 +327,13 @@
     <!-- ============================================ -->
 
     <div class="section">
-      <h2>Work</h2>
       <div class="work-grid">
 
-        <a href="workwise/" class="work-card" style="text-decoration:none;">
+        <a href="workwise_platform.html" class="work-card" style="text-decoration:none;">
           <div class="work-card-org">Workwise AI &mdash; 2026&ndash;present</div>
           <div class="work-card-title">Procurement &amp; Estimation Platform</div>
-          <div class="work-card-role">Solo AI/backend engineer &mdash; 6+ AI systems across the full procurement lifecycle</div>
-          <div class="work-card-desc">Tender evaluation from 6 hours to 3 minutes. BOQ-to-RFQ 8&ndash;10x faster. 7,000+ product catalog with automated deduplication. End-to-end AI for infrastructure procurement &mdash; from tender ingestion to bid evaluation.</div>
+          <div class="work-card-role">Solo AI/backend engineer &mdash; designed and built 6+ AI systems across the full procurement lifecycle</div>
+          <div class="work-card-desc">End-to-end AI platform for infrastructure procurement. From tender ingestion and BOQ interpretation to vendor matching, quote parsing, bid evaluation, and a self-improving product catalog of 7,000+ items. Two personas (tendering authorities and EPC companies), one shared intelligence layer.</div>
           <div class="work-card-modules">
             <span>Tender Summary</span>
             <span>BOQ-to-RFQ</span>
@@ -352,11 +344,11 @@
           </div>
         </a>
 
-        <a href="compliance/" class="work-card" style="text-decoration:none;">
+        <a href="05_financial_compliance_ai.html" class="work-card" style="text-decoration:none;">
           <div class="work-card-org">Facctum &mdash; 2023&ndash;present</div>
           <div class="work-card-title">AI for Financial Compliance</div>
-          <div class="work-card-role">First AI/ML hire at seed stage &mdash; 8+ systems, mentored 6 interns + 4 junior engineers</div>
-          <div class="work-card-desc">Sanctions extraction at 96% accuracy, days to minutes. 3x recall lift on 380M UK transactions. Private LLM inference for data residency. Live with global banking clients.</div>
+          <div class="work-card-role">First AI/ML hire at seed stage &mdash; built 8+ systems, mentored 6 interns + 4 junior engineers</div>
+          <div class="work-card-desc">Took sanctions intelligence from POC to production with global banking clients. Built transaction monitoring on 380M UK transactions, deployed private LLM inference for data residency, plus KYC extraction, adverse media graphs, and more across the compliance stack.</div>
           <div class="work-card-modules">
             <span>Sanctions Extraction</span>
             <span>Transaction Monitoring</span>
@@ -365,31 +357,20 @@
           </div>
         </a>
 
-        <a href="time-series/" class="work-card" style="text-decoration:none;">
+        <a href="01_time_series_forecasting.html" class="work-card" style="text-decoration:none;">
           <div class="work-card-org">IIT Bombay + SigmaStream LLC &mdash; 2020&ndash;2021</div>
           <div class="work-card-title">Forecasting Non-Stationary Time Series</div>
           <div class="work-card-role">Master&rsquo;s thesis &mdash; published as Indian patent application</div>
-          <div class="work-card-desc">Regime-aware forecasting: wavelet scalograms + pretrained CNN + unsupervised clustering. 97%+ accuracy on oil drilling, 92%+ precision / 100% recall on cardiac signals.</div>
+          <div class="work-card-desc">Regime-aware forecasting framework: wavelet transforms convert time-series segments to images, pretrained CNN extracts features, clustering discovers regimes automatically, and per-regime ARMA models forecast. Validated on oil drilling (97%+ accuracy) and cardiac signals (92%+ precision, 100% recall).</div>
         </a>
 
         <div class="work-card" style="cursor: default;">
           <div class="work-card-org">Envestnet Yodlee &mdash; Summer 2019</div>
           <div class="work-card-title">Financial Security Normalization</div>
           <div class="work-card-role">Data Science intern, Bengaluru</div>
-          <div class="work-card-desc">Statistical model for matching and normalizing financial securities across 8M+ records. 33% improvement over existing pipeline.</div>
+          <div class="work-card-desc">Built a statistical model to identify and normalize financial securities from a corpus of 8M+ records. The model improved matching performance by 33% over the existing pipeline.</div>
         </div>
 
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="section" style="text-align: center; margin-bottom: 24px;">
-      <h2 style="text-decoration: none;">Let&rsquo;s talk</h2>
-      <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 20px;">If you&rsquo;re building AI systems for document-heavy workflows &mdash; procurement, compliance, operations &mdash; I can help. I work as a consultant: scoping, architecture, and hands-on implementation.</p>
-      <div style="font-size: 15px;">
-        <a href="mailto:arbazsh10@gmail.com" style="color: var(--accent); margin-right: 20px;">arbazsh10@gmail.com</a>
-        <a href="https://www.linkedin.com/in/~arbazshaikh/" target="_blank" style="color: var(--accent);">LinkedIn</a>
       </div>
     </div>
 

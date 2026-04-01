@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Study: Product Intelligence & Vendor Platform</title>
-  <meta name="description" content="Self-improving product catalog with 7,000+ items, automated deduplication, and PDF catalog parsing. By Arbaz Shaikh.">
-  <meta property="og:title" content="Case Study: Product Intelligence & Vendor Platform">
-  <meta property="og:description" content="7,000+ product catalog with LLM-powered classification, extraction, normalization, and deduplication.">
-  <meta property="og:type" content="article">
   <style>
     :root {
       --bg: #1a1d2e;
@@ -271,7 +267,7 @@
 <body>
   <div class="container">
 
-    <p style="margin-bottom: 24px;"><a href="../workwise/" style="font-size: 13px; color: #7b82a0;">&larr; Workwise Platform</a></p>
+    <p style="margin-bottom: 24px;"><a href="workwise_platform.html" style="font-size: 13px; color: #7b82a0;">&larr; Workwise Platform</a></p>
 
     <h1>Product Intelligence &amp; Vendor Platform</h1>
     <div class="meta">
@@ -286,13 +282,14 @@
     <div class="module-label">Module 1</div>
     <div class="section">
       <h2>Product &amp; Vendor Database</h2>
-      <p>The hard part isn&rsquo;t extraction &mdash; it&rsquo;s deciding what &ldquo;same product&rdquo; means across sources that disagree on naming and attributes, and building a catalog that gets smarter with every source it ingests.</p>
+      <p>The core challenge isn&rsquo;t extraction &mdash; any LLM can pull specs from a product description. The hard part is deciding what &ldquo;same product&rdquo; means across sources that disagree on naming, attribute representation, and categorization &mdash; and building a catalog that gets smarter with every source it ingests rather than just bigger.</p>
     </div>
 
     <!-- PROBLEM -->
     <div class="section">
       <h3>The Problem</h3>
-      <p>&ldquo;SS 316 Gate Valve 2 inch 150#&rdquo; and &ldquo;Stainless Steel Gate Valve 2&Prime; Class 150&rdquo; are the same product. Both are one word away from &ldquo;SS 316 Globe Valve&rdquo; &mdash; which is completely different. <strong>When duplicates exist, vendor coverage fragments</strong> &mdash; buyers see fewer options and get worse pricing. At 7,000+ products from dozens of sources, manual curation doesn&rsquo;t scale.</p>
+      <p>Product data arrives from dozens of sources &mdash; vendor catalogs, quotations, historical BOQs &mdash; each with its own naming conventions, units, and attribute formats. &ldquo;SS 316 Gate Valve 2 inch 150#&rdquo; and &ldquo;Stainless Steel Gate Valve 2&Prime; Class 150&rdquo; are the same product, but without normalization they appear as two entries. And both are one word away from &ldquo;SS 316 Globe Valve 2 inch 150#&rdquo; &mdash; which is a completely different product. <strong>When the same product exists as two catalog entries, vendor coverage fragments</strong> &mdash; vendors attached to one entry don&rsquo;t appear when searching the other, so buyers see fewer options and get worse pricing.</p>
+      <p>Building this catalog manually was the status quo: data entry, cross-referencing, deduplication by eyeballing spreadsheets. At 7,000+ products and growing, with every new source adding variants, synonyms, and edge cases, <strong>manual curation doesn&rsquo;t scale, leads to errors, and costs significant analyst time</strong>.</p>
     </div>
 
     <!-- DESIGN -->
@@ -371,10 +368,10 @@
       </div>
 
       <div class="callout">
-        <strong>Classify:</strong> 3-level taxonomy (Mechanical &rarr; Valves &rarr; Gate Valves). Classification determines the attribute set for extraction. Misclassification = wrong attributes = wrong dedup. Taxonomy grows organically.<br><br>
-        <strong>Extract + Normalize:</strong> Pull name + specs, map to canonical forms. Synonyms accumulate (&ldquo;SS 316&rdquo; = &ldquo;Stainless Steel 316&rdquo; = &ldquo;SA 240 Gr 316&rdquo;) and <strong>skip the LLM on future runs</strong>. Unknown attributes queue for review, never dropped.<br><br>
-        <strong>Review:</strong> Flagged attributes resolved per category in batch. Approve as new canonical, map to synonym, or reject (with repair pass).<br><br>
-        <strong>Dedup:</strong> Three sequential layers with cheap similarity pre-filter before LLM judges each pair. Products vs variants separated &mdash; <strong>merging variants transfers vendor associations</strong> to the winner. Losers excluded from subsequent layers to prevent cascading errors.
+        <strong>Classify</strong> places each product into a 3-level taxonomy (e.g., Mechanical &rarr; Valves &rarr; Gate Valves). Classification determines the attribute set for extraction &mdash; valves get material/size/pressure class, cables get conductor count/voltage rating. A misclassified product gets the wrong attribute set and extracts the wrong specs, so <strong>classification gates everything downstream</strong>. The taxonomy grows organically: the LLM can propose new categories when existing ones don&rsquo;t fit.<br><br>
+        <strong>Extract + Normalize</strong> pulls the core product name and structured attributes, then maps each to canonical forms. Synonyms accumulate: &ldquo;SS 316,&rdquo; &ldquo;Stainless Steel 316,&rdquo; &ldquo;SA 240 Gr 316&rdquo; all resolve to the same canonical and <strong>skip the LLM entirely on future runs</strong>. When the pipeline encounters an attribute name or value it hasn&rsquo;t seen before (e.g., a new spec like &ldquo;surge_rating&rdquo; or a new unit like &ldquo;MVA&rdquo;), it flags it for review rather than dropping it.<br><br>
+        <strong>Review</strong> runs after all products are ingested. All flagged attributes for a category are reviewed together in one batch, so the LLM can spot overlaps (e.g., &ldquo;pipe_material&rdquo; and &ldquo;material&rdquo; are the same concept). Each flagged attribute is <strong>approved as a new canonical, mapped to an existing synonym, or rejected</strong>. Rejected values get a repair pass &mdash; reassigned or discarded, never silently lost.<br><br>
+        <strong>Dedup</strong> runs in three sequential layers &mdash; progressively widening the comparison scope. A cheap similarity filter removes obvious non-matches before the LLM makes the final keep-or-merge decision on each ambiguous pair. The data model separates products (canonical groupings like &ldquo;gate valve&rdquo;) from variants (specific configurations like &ldquo;gate valve, SS 316, 2&Prime;, 150#&rdquo;), so <strong>merging variants doesn&rsquo;t lose vendor associations</strong> &mdash; they transfer to the winning variant. Losers from each layer are excluded from the next to prevent cascading errors.
       </div>
     </div>
 
@@ -433,14 +430,14 @@
 
     <div class="module-label">Module 2</div>
     <div class="section">
-      <h2>Catalog Parsing</h2>
+      <h2>Catalog Parsing <span style="color: #7b82a0; font-weight: 400; font-size: 14px;">(WIP)</span></h2>
       <p>When a new vendor is onboarded, their product catalog is the primary source of what they sell &mdash; but it arrives as a PDF. Tables span pages, cells merge unpredictably, headers repeat or don&rsquo;t, and no two vendors format their catalogs the same way. Before the product database pipeline (Module 1) can classify and normalize these products, something has to turn the PDF into structured table data.</p>
     </div>
 
     <!-- PROBLEM -->
     <div class="section">
       <h3>The Problem</h3>
-      <p>Vendor catalogs are dense PDFs &mdash; tables spanning pages, merged cells, rotated headers, embedded images. Off-the-shelf parsers lose table structure. <strong>The product database can&rsquo;t ingest what it can&rsquo;t parse</strong> &mdash; manual transcription is the bottleneck.</p>
+      <p>Vendor product catalogs are dense PDF documents &mdash; product specs in tables that span multiple pages, merged cells, rotated headers, and embedded images mixed with text. Off-the-shelf PDF parsers fail on these layouts: they lose table structure, merge adjacent columns, or miss text inside complex cell arrangements. <strong>The product database can&rsquo;t ingest what it can&rsquo;t parse</strong> &mdash; and manual transcription from PDF catalogs is the bottleneck that limits how fast new vendor data enters the system.</p>
     </div>
 
     <!-- DESIGN -->
@@ -514,7 +511,7 @@
       </div>
 
       <div class="callout">
-        <strong>Why two-pass OCR?</strong> Cell-level OCR misses text in merged headers, spanning captions, and footnotes. The full-page pass catches these. Merged via bounding box containment &mdash; <strong>nothing silently lost</strong>.
+        <strong>Why two-pass OCR?</strong> Table structure recognition identifies cell boundaries, and cell-level OCR extracts text within each cell. But some text falls inside the table&rsquo;s bounding box yet outside any detected cell &mdash; merged headers, spanning captions, footnotes. The full-page OCR pass catches these. During consolidation, the two passes are merged via bounding box containment &mdash; <strong>text that the table model missed is recovered from the full-page pass</strong> rather than silently lost.
       </div>
     </div>
 
@@ -550,8 +547,7 @@
       <h3>Results</h3>
       <ul>
         <li>Vendor catalogs go from <strong>PDF to structured table data</strong> without manual transcription &mdash; directly feedable into the product database pipeline</li>
-        <li>Handles dense industrial catalogs with <strong>multi-page tables, merged cells, rotated headers</strong> &mdash; layouts that off-the-shelf PDF parsers lose structure on</li>
-        <li>Runs <strong>CPU-only on internal infrastructure</strong> &mdash; no cloud OCR costs, no data leaving the network</li>
+        <li><strong>Next steps:</strong> accuracy evaluation against ground truth, confidence-based routing for low-quality pages, and a review queue for flagged extractions</li>
       </ul>
     </div>
 
