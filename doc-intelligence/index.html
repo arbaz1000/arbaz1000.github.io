@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Study: AI-Powered Document Intelligence for Procurement</title>
+  <meta name="description" content="Tender summary, BOQ-to-RFQ, and quotation parsing — AI document intelligence for EPC procurement. By Arbaz Shaikh.">
+  <meta property="og:title" content="Case Study: Document Intelligence for Procurement">
+  <meta property="og:description" content="Tender summary in 5 min, BOQ-to-RFQ 8-10x faster, VLM-based quotation parsing across 6+ vendor formats.">
+  <meta property="og:type" content="article">
   <style>
     :root {
       --bg: #1a1d2e;
@@ -261,7 +265,7 @@
 <body>
   <div class="container">
 
-    <p style="margin-bottom: 24px;"><a href="workwise_platform.html" style="font-size: 13px; color: #7b82a0;">&larr; Workwise Platform</a></p>
+    <p style="margin-bottom: 24px;"><a href="../workwise/" style="font-size: 13px; color: #7b82a0;">&larr; Workwise Platform</a></p>
 
     <h1>AI-Powered Document Intelligence for Procurement</h1>
     <div class="meta">
@@ -276,15 +280,13 @@
     <div class="module-label">Module 1</div>
     <div class="section">
       <h2>Tender Summary</h2>
-      <p>Index-then-extract &mdash; analogous to how a code indexer parses a codebase into symbols before querying, except tender documents have no formal grammar, so the indexing step itself is AI-powered. Works across any client&rsquo;s summary format without code changes, with auditable per-field output.</p>
+      <p>Index-then-extract: classify the document structure first, then extract fields scoped to relevant sections. Works across any client&rsquo;s summary format without code changes.</p>
     </div>
 
     <!-- PROBLEM -->
     <div class="section">
       <h3>The Problem</h3>
-      <p>Tenders arrive as bundles of 10-30 documents &mdash; scope of work, general conditions, BOQs, technical specifications, annexures, corrigenda &mdash; spanning hundreds of pages across PDFs, Word docs, and spreadsheets. Before a procurement team can decide whether to bid, they need to assess: do we meet the eligibility criteria? Can we post the EMD? Is the deadline feasible? Does the scope match our capabilities? This Go/No-Go decision requires extracting and cross-referencing information scattered across the entire bundle. <strong>Days per tender, and incomplete reads risk disqualification or wasted bid effort.</strong></p>
-
-      <p>Every client organization uses a different summary format (an Excel template with their own fields and sections). The system needs to adapt to any template without code changes.</p>
+      <p>Tenders arrive as 10-30 documents spanning hundreds of pages. The Go/No-Go decision requires extracting eligibility, scope, timelines, and commercial terms scattered across the entire bundle. <strong>Days per tender, and incomplete reads risk disqualification.</strong> Every client uses a different summary format.</p>
     </div>
 
     <!-- DESIGN -->
@@ -368,9 +370,9 @@
       </div>
 
       <div class="callout">
-        <strong>Phase 1</strong> builds a document map: each file&rsquo;s pages are classified into typed spans &mdash; SOW pages 1-45, GCC pages 46-80, Technical Specs pages 81-120, and so on (19 document categories). This is the &ldquo;indexing&rdquo; step &mdash; one LLM call per file, cached by file hash.<br><br>
-        <strong>Phase 2</strong> uses the map: each field in the client&rsquo;s template has designated source categories (e.g., &ldquo;Payment Terms&rdquo; looks in SCC then GCC). For each category, only the relevant spans are sent to the LLM with the fields that belong to that category &mdash; not the full document bundle. All categories run in parallel, so wall-clock time scales with the largest section, not the total page count. Every extracted field carries a source citation (e.g., &ldquo;SOW | PAGE 5&rdquo;) back to the originating document.<br><br>
-        <strong>Cross-module output:</strong> The document map isn&rsquo;t just for summarization. The technical specification and approved vendor list spans identified here are passed downstream to the BOQ-to-RFQ module, where they&rsquo;re matched to individual line items &mdash; so each product in the BOQ gets the right spec sheet and approved makes without re-reading the tender documents.
+        <strong>Phase 1:</strong> Classify pages into typed spans (19 categories). One LLM call per file, cached by hash.<br><br>
+        <strong>Phase 2:</strong> Each template field has designated source categories (e.g., &ldquo;Payment Terms&rdquo; looks in SCC then GCC). Only relevant spans sent to LLM. All categories extracted in parallel. Every field carries a source citation.<br><br>
+        <strong>Cross-module:</strong> The document map feeds downstream &mdash; TDS and approved vendor list spans pass to BOQ-to-RFQ, so each product gets the right spec sheet without re-reading the tender.
       </div>
     </div>
 
@@ -428,15 +430,13 @@
     <div class="module-label">Module 2</div>
     <div class="section">
       <h2>BOQ-to-RFQ</h2>
-      <p>Takes a Bill of Quantities (BOQ) &mdash; the schedule of items a buyer needs priced &mdash; and produces a complete Request for Quotation (RFQ) package per line item: structured product, matched vendor, attached spec sheet, approved makes. The interesting design problem is that BOQ interpretation requires domain expertise that traditionally bottlenecks on experienced engineers.</p>
+      <p>BOQ &rarr; vendor-ready RFQ packages with matched products, spec sheets, and approved makes. The hard part isn&rsquo;t parsing &mdash; it&rsquo;s interpreting what items mean, which traditionally bottlenecks on experienced engineers.</p>
     </div>
 
     <!-- PROBLEM -->
     <div class="section">
       <h3>The Problem</h3>
-      <p>BOQs arrive in inconsistent formats &mdash; PDFs, Excel files, scanned documents &mdash; with merged cells, multi-row headers, and no standard column structure. But the harder problem isn&rsquo;t parsing the format. It&rsquo;s interpreting what the items mean. A section might have a parent row &ldquo;Supply and installation of lighting fittings complete with ballast, driver, diffuser, reflector, as required&rdquo; followed by variant rows for different fixture types &mdash; each inheriting the parent description, bundling products with installation services, and referencing standards and approved makes inline. An experienced engineer reads this structure and understands what inherits from what, which parts are products versus services, and which accessories are associated items versus the main product. <strong>That interpretation currently lives in people&rsquo;s heads, and it&rsquo;s the bottleneck for the entire procurement chain.</strong></p>
-
-      <p>Once items are interpreted and structured, each one needs to be matched to vetted vendors from the database, cross-referenced against the tender&rsquo;s technical specification documents and approved makes list, and packaged into an RFQ. This flow is used both during tender cost estimation and post-award procurement &mdash; <strong>speed here directly determines how fast structured quotes come back.</strong></p>
+      <p>BOQ line items bundle products with services, inherit descriptions from parent rows, and reference standards inline. An experienced engineer reads this structure and knows what inherits from what, which parts are products vs services, which accessories are associated items vs the main product. <strong>That interpretation lives in people&rsquo;s heads and bottlenecks the entire procurement chain.</strong></p>
     </div>
 
     <!-- DESIGN -->
@@ -445,8 +445,8 @@
       <p>Five-stage pipeline: <strong>chunk &rarr; interpret &rarr; extract &rarr; match &rarr; link</strong>. The key design choice is separating interpretation from extraction &mdash; the LLM reasons about what items mean first, then a second pass extracts clean structured data.</p>
 
       <div class="callout">
-        <strong>V1 shipped first</strong> with fixed 30-row chunks, processed sequentially. Each chunk&rsquo;s last product block rolled forward as context to the next, so items split at boundaries weren&rsquo;t lost. Recall was high &mdash; items were being extracted correctly &mdash; but the chunk size was a fixed parameter that didn&rsquo;t adapt dynamically. Dense cable schedules got truncated, sparse civil sections wasted tokens, and sequential processing meant throughput couldn&rsquo;t scale.<br><br>
-        <strong>V2 replaced this</strong> with semantic chunking: the LLM identifies package boundaries based on the document&rsquo;s own structure, not row counts. Since packages are self-contained, they can be processed in parallel. A scratchpad interpretation step was added between chunking and extraction &mdash; the model reasons about ambiguous items in free-form text first, then a second pass structures it. This separated reasoning from extraction, and enabled extracting the full BOQ hierarchy: packages &rarr; product groups &rarr; line items, with associated products and services separated from main items &mdash; not just a flat list of products.
+        <strong>V1:</strong> Fixed 30-row chunks, sequential, rolling context forward. Worked but didn&rsquo;t adapt to content density &mdash; dense cable schedules got truncated, sparse sections wasted tokens.<br><br>
+        <strong>V2:</strong> Semantic chunking (LLM identifies package boundaries from document structure) + scratchpad interpretation (reason about ambiguous items in free text before extracting structured data). Packages are self-contained &rarr; parallel processing. Extracts full BOQ hierarchy: packages &rarr; product groups &rarr; line items, with associated products and services separated.
       </div>
 
       <!-- Pipeline diagram -->
@@ -614,51 +614,68 @@
 
     <div class="module-label">Module 3</div>
     <div class="section">
-      <h2>Quotation Parsing <span style="color: #7b82a0; font-weight: 400; font-size: 14px;">(WIP)</span></h2>
-      <p>After the BOQ-to-RFQ pipeline sends out vendor inquiries, quotes come back. Each vendor returns a PDF in their own format &mdash; different layouts, different line item descriptions, different ways of bundling products. The goal: extract structured product data from each quote and compare it against the original RFQ requirements to flag what&rsquo;s matched, what deviates, and what&rsquo;s missing.</p>
+      <h2>Quotation Parsing</h2>
+      <p>After vendor inquiries go out, quotes come back as PDFs &mdash; every vendor uses a different layout, different line item descriptions, different ways of bundling products. The pipeline extracts structured data from any quote format, then semantically matches it against the original RFQ to flag matches, deviations, and missing items.</p>
     </div>
 
-    <!-- DESIGN INTENT -->
+    <!-- WHAT MADE IT HARD -->
     <div class="section">
-      <h3>Design Intent</h3>
-      <p>The pipeline takes a vendor quote PDF and the corresponding RFQ as inputs. <strong>VLM/OCR extraction</strong> pulls structured product data from the quote &mdash; product names, specs, quantities, unit prices. Then a <strong>comparison step</strong> matches each extracted product against the RFQ line items and produces per-product flags:</p>
+      <h3>What Made It Hard</h3>
       <ul>
-        <li><strong>Product matched</strong> &mdash; quoted product maps to an RFQ line item within spec</li>
-        <li><strong>Deviation found</strong> &mdash; product matches but specs differ (e.g., different material grade, different rating)</li>
-        <li><strong>Missing product</strong> &mdash; RFQ line item has no corresponding entry in the quote</li>
+        <li><strong>No two vendors format quotes the same way</strong> &mdash; simple price tables, multi-page proposals with cover letters and T&amp;Cs, panel BOMs with sub-components, ERP-generated exports. The parser handles 6+ distinct formats without per-vendor configuration</li>
+        <li><strong>Multi-page table continuation</strong> &mdash; price tables span 3-4 pages with sequential row numbers. Per-page extraction must detect continuation (first row &ne; 1) and merge correctly</li>
+        <li><strong>String matching fails for RFQ comparison</strong> &mdash; quote says &ldquo;300 SQMM x 3C&rdquo;, RFQ says &ldquo;3.5C x 300 Sq.mm&rdquo;. These are equivalent, but any distance metric misses it. Semantic matching via LLM is required</li>
       </ul>
-      <p>The output feeds into <strong>cost estimation</strong> and <strong>vendor comparison</strong> workflows &mdash; procurement teams see a structured comparison rather than manually cross-referencing PDFs against spreadsheets.</p>
+    </div>
 
-      <!-- Concept diagram -->
+    <!-- DESIGN -->
+    <div class="section">
+      <h3>The Design</h3>
+      <p>Two-stage pipeline: <strong>VLM extraction</strong> (per-page, parallelized, with multi-page fallback) then <strong>LLM semantic matching</strong> against RFQ.</p>
+
       <div class="diagram-wrapper">
-        <svg viewBox="0 0 680 120" width="680" height="120" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 680 190" width="680" height="190" xmlns="http://www.w3.org/2000/svg">
 
-          <rect x="5" y="46" width="100" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="55" y="66" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Vendor Quote</text>
-          <text x="55" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">PDF</text>
+          <text x="340" y="18" text-anchor="middle" fill="#7b82a0" font-size="11" font-weight="700" letter-spacing="2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">STAGE 1 &mdash; EXTRACTION</text>
 
-          <line x1="105" y1="70" x2="125" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="5" y="36" width="90" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="50" y="56" text-anchor="middle" fill="#505878" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Quote PDF</text>
+          <text x="50" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">any format</text>
 
-          <rect x="125" y="46" width="120" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
-          <text x="185" y="66" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">VLM / OCR Extract</text>
-          <text x="185" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">structured products</text>
+          <line x1="95" y1="60" x2="115" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <line x1="245" y1="70" x2="275" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="115" y="36" width="130" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="180" y="56" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Per-Page VLM</text>
+          <text x="180" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">parallel extraction</text>
 
-          <rect x="275" y="46" width="155" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
-          <text x="352" y="66" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Compare vs RFQ</text>
-          <text x="352" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">match, deviate, or missing</text>
+          <line x1="245" y1="60" x2="265" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="265" y="36" width="120" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="325" y="56" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Assemble</text>
+          <text x="325" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">merge + validate</text>
+
+          <line x1="385" y1="60" x2="405" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
+
+          <rect x="405" y="36" width="130" height="48" rx="2" fill="#1e2235" stroke="#353a50" stroke-width="1.5"/>
+          <text x="470" y="56" text-anchor="middle" fill="#6fa3ef" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">RFQ Matching</text>
+          <text x="470" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">semantic LLM compare</text>
 
           <!-- RFQ input from above -->
-          <rect x="310" y="4" width="80" height="22" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="350" y="19" text-anchor="middle" fill="#505878" font-size="10" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">RFQ</text>
-          <line x1="350" y1="26" x2="350" y2="46" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
+          <rect x="440" y="4" width="60" height="18" rx="2" fill="none" stroke="#353a50" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="470" y="17" text-anchor="middle" fill="#505878" font-size="10" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">RFQ</text>
+          <line x1="470" y1="22" x2="470" y2="36" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <line x1="430" y1="70" x2="460" y2="70" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
+          <line x1="535" y1="60" x2="555" y2="60" stroke="#4a5270" stroke-width="1" marker-end="url(#arr5)"/>
 
-          <rect x="460" y="46" width="140" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
-          <text x="530" y="66" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Flagged Comparison</text>
-          <text x="530" y="82" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">per-product status</text>
+          <rect x="555" y="36" width="120" height="48" rx="2" fill="none" stroke="#353a50" stroke-width="1.5"/>
+          <text x="615" y="56" text-anchor="middle" fill="#e8e6e3" font-size="11" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Comparison</text>
+          <text x="615" y="72" text-anchor="middle" fill="#505878" font-size="10" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">match / deviate / miss</text>
+
+          <!-- Annotation -->
+          <text x="340" y="110" text-anchor="middle" fill="#4a5270" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">VLM reads page images directly &mdash; no OCR. Per-page extraction parallelized; multi-page fallback if zero items found</text>
+
+          <!-- Additional detail -->
+          <text x="340" y="130" text-anchor="middle" fill="#4a5270" font-size="10" font-style="italic" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">Post-extraction: make propagation, BOM linking, supporting doc matching, price validation &mdash; all before RFQ comparison</text>
 
           <defs>
             <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
@@ -666,8 +683,55 @@
             </marker>
           </defs>
         </svg>
-        <div class="diagram-caption">Quote extraction &rarr; RFQ comparison &rarr; per-product match/deviation/missing flags</div>
+        <div class="diagram-caption">Per-page VLM extraction &rarr; assembly &rarr; semantic RFQ matching &rarr; per-product comparison</div>
       </div>
+
+      <div class="callout">
+        <strong>Why VLM over OCR?</strong> Vendor quotes have wildly inconsistent layouts &mdash; merged cells, rotated headers, embedded images, Indian number formats (&ldquo;8,56,930.00&rdquo;). A vision language model reads the page as an image, the same way a human does, sidestepping layout parsing entirely. Per-page extraction runs in parallel (8 concurrent); if all pages yield zero items (e.g., specs on page 1, prices on page 2), a multi-page fallback sends all pages in one call.<br><br>
+        <strong>Post-extraction enrichment</strong> runs before matching: make/brand propagation (if stated once globally, applied to all items), BOM component linking (panels list sub-components separately), supporting document matching (datasheets linked to parent items), and price validation (flags unit_price &times; qty &ne; total without auto-correcting &mdash; we don&rsquo;t know which digit was misread).<br><br>
+        <strong>RFQ matching</strong> uses LLM semantic comparison, not string distance. For each RFQ item, the LLM determines: <strong>exact match</strong> (product, size, quantity align), <strong>deviation</strong> (similar product but spec differs), or <strong>no match</strong> (vendor didn&rsquo;t quote this item). Extra quoted items not in the RFQ are surfaced separately.
+      </div>
+    </div>
+
+    <!-- KEY DECISIONS -->
+    <div class="section">
+      <h3>Key Decisions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VLM on page images</td>
+            <td>Handles any PDF layout without OCR preprocessing. Indian number formats, special characters, and merged cells are read naturally from the visual page.</td>
+          </tr>
+          <tr>
+            <td>Per-page + fallback</td>
+            <td>Per-page is fast and cheap (smaller images, parallel). But specs and prices sometimes live on different pages &mdash; <strong>zero-item result triggers automatic multi-page retry</strong>.</td>
+          </tr>
+          <tr>
+            <td>No auto-correction</td>
+            <td>Price validation flags mismatches but <strong>never silently corrects</strong> &mdash; we can&rsquo;t know which digit the VLM misread. Human review resolves flagged items.</td>
+          </tr>
+          <tr>
+            <td>Structured output (Pydantic)</td>
+            <td>49 fields per line item enforced via schema. Eliminates JSON parsing failures and ensures every downstream consumer gets clean, typed data.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section">
+      <h3>Results</h3>
+      <ul>
+        <li>Parses <strong>6+ distinct quote formats</strong> &mdash; simple tables, multi-page proposals, panel BOMs, multi-file submissions, ERP exports &mdash; without per-vendor configuration</li>
+        <li>Semantic RFQ matching catches equivalences that string matching misses &mdash; procurement teams see a <strong>structured comparison per vendor</strong> instead of manually cross-referencing PDFs</li>
+        <li>Full audit trail: every VLM/LLM call logged with token usage and cost estimates</li>
+      </ul>
     </div>
 
   </div>

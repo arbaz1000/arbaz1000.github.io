@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Study: AI for Financial Compliance</title>
+  <meta name="description" content="8+ AI systems for financial compliance — sanctions extraction at 96% accuracy, transaction monitoring on 380M records, private LLM inference. By Arbaz Shaikh.">
+  <meta property="og:title" content="Case Study: AI for Financial Compliance">
+  <meta property="og:description" content="Sanctions extraction 96% accuracy, 3x recall lift on 380M transactions, private LLM inference for data residency.">
+  <meta property="og:type" content="article">
   <style>
     :root {
       --bg: #1a1d2e;
@@ -258,7 +262,7 @@
 <body>
   <div class="container">
 
-    <div style="font-size: 13px; color: #7b82a0; margin-bottom: 24px;"><a href="index.html" style="color: #7b82a0; text-decoration: underline; text-underline-offset: 3px;">&larr; Portfolio</a></div>
+    <div style="font-size: 13px; color: #7b82a0; margin-bottom: 24px;"><a href="../" style="color: #7b82a0; text-decoration: underline; text-underline-offset: 3px;">&larr; Portfolio</a></div>
 
     <h1>AI for Financial Compliance</h1>
     <div class="meta">
@@ -268,9 +272,7 @@
 
     <!-- CONTEXT -->
     <div class="section">
-      <ul>
-        <li>Joined as the <strong>first AI/ML engineer</strong> &mdash; built <strong>8+ systems</strong> across the compliance stack, took FacctList's sanctions intelligence feature from <strong>POC to production</strong> (now live with <strong>global clients</strong>)</li>
-      </ul>
+      <p>First AI/ML hire. Built <strong>8+ systems</strong> across the compliance stack. Took sanctions intelligence from POC to production with <strong>global banking clients</strong>.</p>
     </div>
 
     <hr>
@@ -287,25 +289,18 @@
     <div class="section">
       <h3>The Problem</h3>
       <ul>
-        <li>FacctList is Facctum's <strong>watchlist management platform</strong> &mdash; ingests, validates, and distributes sanctions lists to banks' screening systems</li>
-        <li>Regulators expect banks to act on sanctions <strong>as soon as press releases are published</strong> &mdash; but consolidated official lists can take significantly longer to follow. The gap is a compliance risk</li>
-        <li>Press releases come in <strong>mixed formats</strong> &mdash; sometimes tabular, sometimes free-form legal text &mdash; with entities, aliases, nationalities, and effective dates embedded inconsistently</li>
-        <li>Previously, <strong>analysts manually read press releases</strong> and updated the database &mdash; a process that took <strong>days per update</strong></li>
+        <li>Banks must act on sanctions <strong>as soon as press releases are published</strong> &mdash; but official lists lag. The gap is a compliance risk</li>
+        <li>Press releases come in <strong>mixed formats</strong> (tabular, free-form legal text) with entities, aliases, and dates embedded inconsistently</li>
+        <li>Previously, analysts manually processed press releases &mdash; <strong>days per update</strong></li>
       </ul>
     </div>
 
     <div class="section">
       <h3>High-Level Design</h3>
       <ul>
-        <li><strong>Monitor</strong> polls EU press releases and official journals, detecting new sanctions publications</li>
-        <li><strong>Extractor</strong> parses each publication and extracts structured records &mdash; entity names, aliases, nationalities, sanctions type, effective dates, legal basis
-          <ul>
-            <li><strong>Format-aware parsing</strong> &mdash; different parsers handle tabular vs free-form legal text before a unified LLM extraction step</li>
-            <li>Publications span <strong>tens to hundreds of pages</strong> &mdash; reliable extraction at this scale is a core challenge</li>
-            <li><strong>Alias extraction</strong> &mdash; free-form text lists full names, first/middle/last names, and aliases inconsistently; need to reliably extract all possible name combinations per entity. Evaluated prompt chaining vs fine-tuning, went with prompt chaining</li>
-          </ul>
-        </li>
-        <li>Extracted records feed into FacctList's ingestion pipeline for <strong>deduplication, reconciliation, and distribution</strong> to downstream screening engines</li>
+        <li><strong>Monitor</strong> polls EU press releases and official journals for new sanctions publications</li>
+        <li><strong>Extractor</strong> &mdash; format-aware parsing (tabular vs free-form legal text) into a unified LLM extraction step. Publications span tens to hundreds of pages. Alias extraction handles inconsistent name representations via prompt chaining</li>
+        <li>Structured records feed into FacctList for <strong>deduplication, reconciliation, and distribution</strong> to screening engines</li>
       </ul>
 
       <!-- Pipeline diagram -->
@@ -378,26 +373,14 @@
 
     <div class="section">
       <h3>The Problem</h3>
-      <ul>
-        <li>Banks need to flag suspicious transactions for AML at two levels:
-          <ul>
-            <li><strong>Alert level</strong> &mdash; is this transaction suspicious given the customer's transaction history?</li>
-            <li><strong>SAR level</strong> &mdash; should this transaction alert be escalated to a regulatory filing?</li>
-          </ul>
-        </li>
-      </ul>
+      <p>Banks flag suspicious transactions for AML at two levels: <strong>alert</strong> (is this transaction suspicious?) and <strong>SAR</strong> (should it be escalated to a regulatory filing?).</p>
     </div>
 
     <div class="section">
       <h3>Approach</h3>
       <ul>
-        <li>Built on <strong>380M UK transactions</strong> using <strong>LSTM + XGBoost</strong> as complementary models:
-          <ul>
-            <li><strong>LSTM</strong> &mdash; sequential patterns where transaction order matters (velocity, timing)</li>
-            <li><strong>XGBoost</strong> &mdash; tabular features like amounts, counterparty risk, account aggregates</li>
-          </ul>
-        </li>
-        <li><strong>Model explainability layer</strong> &mdash; SHAP feature attributions translated into <strong>LLM-generated natural language summaries</strong>. Ops teams see &ldquo;high-value transfer to a new counterparty in a high-risk jurisdiction&rdquo; instead of feature weight vectors &mdash; actionable reasons, not raw model output</li>
+        <li><strong>LSTM + XGBoost</strong> on <strong>380M UK transactions</strong> &mdash; LSTM for sequential patterns (velocity, timing), XGBoost for tabular features (amounts, counterparty risk, aggregates)</li>
+        <li><strong>Explainability:</strong> SHAP attributions &rarr; LLM-generated natural language summaries. Ops teams see &ldquo;high-value transfer to new counterparty in high-risk jurisdiction&rdquo; instead of feature vectors</li>
       </ul>
     </div>
 
@@ -424,27 +407,21 @@
 
     <div class="section">
       <h3>The Problem</h3>
-      <ul>
-        <li>Compliance systems handle <strong>sensitive financial data</strong> &mdash; transactions, KYC documents, case files</li>
-        <li>Sending this to third-party LLM APIs is a <strong>regulatory and contractual non-starter</strong> for banking clients</li>
-        <li>But multiple systems depend on LLM capabilities &mdash; extraction, summarization, classification</li>
-      </ul>
+      <p>Compliance systems handle sensitive financial data. Sending it to third-party LLM APIs is a <strong>regulatory non-starter</strong> for banking clients &mdash; but multiple systems depend on LLM capabilities.</p>
     </div>
 
     <div class="section">
       <h3>Approach</h3>
       <ul>
-        <li>Deployed <strong>self-hosted Qwen-2.5-14B</strong> with <strong>vLLM</strong> as the serving layer &mdash; full inference stack within Facctum's own infrastructure</li>
-        <li><strong>Model selection</strong> &mdash; Qwen-2.5-14B with Apache 2.0 license (unlike Llama); outperforms Mistral at equivalent scale; fine-tunable architecture validated on regulatory document understanding tasks</li>
-        <li>vLLM provides <strong>continuous batching</strong> and <strong>PagedAttention</strong> &mdash; handles variable concurrent load efficiently without dedicating a GPU per request</li>
+        <li>Self-hosted <strong>Qwen-2.5-14B + vLLM</strong> &mdash; full inference stack on Facctum&rsquo;s infrastructure</li>
+        <li>Qwen-2.5-14B: Apache 2.0 license, outperforms Mistral at scale, fine-tunable for regulatory documents</li>
+        <li>vLLM: continuous batching + PagedAttention for variable concurrent load</li>
       </ul>
     </div>
 
     <div class="section">
       <h3>Results</h3>
-      <ul>
-        <li><strong>Removed the data residency blocker</strong> &mdash; Facctum can now serve regulated clients who would otherwise reject the product</li>
-      </ul>
+      <p><strong>Removed the data residency blocker</strong> &mdash; Facctum can serve regulated clients who would otherwise reject the product.</p>
     </div>
 
     <hr>

@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Study: Automated Vendor & Bid Evaluation</title>
+  <meta name="description" content="Automated vendor bid evaluation — technical compliance checking and financial evaluation from 6 hours to 3 minutes per bidder.">
+  <meta property="og:title" content="Case Study: Automated Vendor & Bid Evaluation">
+  <meta property="og:description" content="Technical bid eval from 6 hours to 3 minutes. Financial eval 4-5x faster. Domain-aware AI for EPC procurement.">
+  <meta property="og:type" content="article">
   <style>
     :root {
       --bg: #1a1d2e;
@@ -261,7 +265,7 @@
 <body>
   <div class="container">
 
-    <p style="margin-bottom: 24px;"><a href="workwise_platform.html" style="font-size: 13px; color: #7b82a0;">&larr; Workwise Platform</a></p>
+    <p style="margin-bottom: 24px;"><a href="../workwise/" style="font-size: 13px; color: #7b82a0;">&larr; Workwise Platform</a></p>
 
     <h1>Automated Vendor &amp; Bid Evaluation</h1>
     <div class="meta">
@@ -276,27 +280,24 @@
     <div class="module-label">Module 1</div>
     <div class="section">
       <h2>Technical Bid Evaluation</h2>
-      <p>The core technical challenge isn&rsquo;t extraction or model orchestration &mdash; it&rsquo;s encoding domain knowledge into system behavior that a domain expert would trust. What a stamp means contractually, which content is the bidder&rsquo;s vs the purchaser&rsquo;s, when &ldquo;no annotation&rdquo; <em>is</em> the answer. The engineering decisions &mdash; hybrid routing, prompt calibration, confidence tiers &mdash; all flow from getting the domain right first.</p>
+      <p>The core challenge isn&rsquo;t extraction &mdash; it&rsquo;s encoding domain knowledge that a procurement engineer would trust. What a stamp means contractually, which content is the bidder&rsquo;s vs the purchaser&rsquo;s, when &ldquo;no annotation&rdquo; <em>is</em> the answer.</p>
     </div>
 
     <!-- PROBLEM -->
     <div class="section">
       <h3>The Problem</h3>
-      <p>In EPC procurement, a buyer sends technical specs to bidders. Each bidder responds by stamping the buyer&rsquo;s own documents (datasheets, checklists, spec covers) and returning them alongside their own quotation letter. The result is a single PDF &mdash; 50-100+ pages &mdash; where most of the content is the buyer&rsquo;s original text, and the bidder&rsquo;s actual response is scattered across stamps, handwritten annotations, filled-in fields, and qualifying statements buried in fine print.</p>
-      <p>An engineer then checks this against an evaluation template (TBE), point by point, across 50-100+ evaluation points. <strong>4-6 hours per bidder &times; 4-5 bidders per tender.</strong></p>
+      <p>Bidders respond to tech specs by stamping the buyer&rsquo;s own documents and returning them alongside their quotation &mdash; a single 50-100+ page PDF where ~90% is the buyer&rsquo;s original text. An engineer checks this against an evaluation template (TBE) across 50-100+ points. <strong>4-6 hours per bidder &times; 4-5 bidders per tender.</strong></p>
     </div>
 
     <!-- WHAT MADE IT HARD -->
     <div class="section">
       <h3>What Made It Hard</h3>
-
-      <p><strong>Most of the PDF is not the bidder&rsquo;s content.</strong> ~90% of a bidder&rsquo;s response is the buyer&rsquo;s own documents stamped and returned unchanged. The printed text is the purchaser&rsquo;s specs. The only signal is what the bidder <em>added</em> &mdash; stamps, handwritten annotations, filled-in fields, struck-through values, color ink marks. A naive &ldquo;extract all text&rdquo; approach drowns in purchaser content and misses the actual bidder response.</p>
-
-      <p><strong>Stamps mean compliance.</strong> In EPC convention, a bidder stamping a spec cover page is a contractual declaration: &ldquo;we accept this entire document.&rdquo; A stamped page with zero modifications is the normal case &mdash; and it means full compliance. Missing this domain convention means wrong compliance status on every evaluation point that references that document.</p>
-
-      <p><strong>Two failure modes pull in opposite directions.</strong> Let the model infer too freely and it fabricates evidence (&ldquo;API 6D referenced in datasheet&rdquo; &mdash; it never saw the datasheet). Restrict it too much and it refuses to credit valid compliance signals &mdash; stamped documents that contractually mean full acceptance get marked INSUFFICIENT_SUBMISSION. The prompt had to encode the exact boundary: accept blanket compliance from stamps, but state the basis honestly.</p>
-
-      <p><strong>Every client uses a different template.</strong> Different groupings, categories, evaluation criteria. Hardcoding per client doesn&rsquo;t scale.</p>
+      <ul>
+        <li><strong>~90% of the PDF is not the bidder&rsquo;s content.</strong> The only signal is what the bidder <em>added</em> &mdash; stamps, handwritten annotations, filled-in fields. &ldquo;Extract all text&rdquo; drowns in purchaser content</li>
+        <li><strong>Stamps mean compliance.</strong> In EPC convention, stamping a spec cover = contractual acceptance of the entire document. Missing this convention means wrong status on every evaluation point referencing that document</li>
+        <li><strong>Two failure modes pull opposite directions.</strong> Infer too freely &rarr; fabricated evidence. Restrict too much &rarr; stamped documents (full acceptance) marked INSUFFICIENT_SUBMISSION. The prompt encodes the exact boundary</li>
+        <li><strong>Every client uses a different template.</strong> Different groupings, categories, evaluation criteria. Hardcoding doesn&rsquo;t scale</li>
+      </ul>
     </div>
 
     <!-- DESIGN (diagram-led) -->
@@ -409,9 +410,9 @@
       </div>
 
       <div class="callout">
-        <strong>Step 0</strong> solves the template problem: the system reads any client&rsquo;s TBE Excel and uses an LLM to understand the structure &mdash; what the evaluation points are, how they&rsquo;re grouped, which ones are technical vs commercial vs line items. The line items list is extracted here for downstream price verification. Runs once per template, cached by hash, reused across all bidders.<br><br>
-        <strong>Layer 1</strong> solves the bidder-vs-purchaser problem: for each page, it identifies what type of document this is (quotation, datasheet, stamped spec cover &mdash; 11 types), whether the bidder stamped it, and crucially, what the bidder actually wrote or changed on this page. Contiguous pages of the same type merge into a structured submission map &mdash; what&rsquo;s in it, where, and what the bidder flagged or changed. The quotation and pricing pages identified here are extracted for downstream price verification alongside Step 0&rsquo;s line items.<br><br>
-        <strong>Layer 2</strong> connects the two: it takes the grouped evaluation points from Step 0, matches them against Layer 1&rsquo;s submission map, and evaluates each one &mdash; does this bidder&rsquo;s submission address it? A stamped spec cover means blanket compliance. A flagged observation on the quotation means a qualification that might affect multiple evaluation points. Each evaluation point gets a status, confidence level, evidence pages, and flagged observations.
+        <strong>Step 0:</strong> LLM reads any client&rsquo;s TBE Excel &rarr; grouped evaluation points + line items list. Cached by template hash, reused across all bidders.<br><br>
+        <strong>Layer 1:</strong> Per-page classification (11 doc types) + stamp detection + bidder-change extraction. Contiguous same-type pages merge into a structured submission map.<br><br>
+        <strong>Layer 2:</strong> Matches evaluation points against submission map. Stamped spec cover = blanket compliance. Flagged quotation observations propagate to affected evaluation points. Each point gets status + confidence + evidence pages.
       </div>
     </div>
 
@@ -475,15 +476,13 @@
     <div class="module-label">Module 2</div>
     <div class="section">
       <h2>Financial &amp; Credential Evaluation</h2>
-      <p>A structured extraction pipeline that works across any client&rsquo;s evaluation template without engineering work per client, produces auditable per-cell output with source citations, and handles the messy reality of Indian financial documents. The value is in the genericity and auditability, not in some deep technical challenge.</p>
+      <p>Generic extraction pipeline &mdash; works across any client&rsquo;s evaluation template without per-client engineering. Auditable per-cell output with source citations.</p>
     </div>
 
     <!-- PROBLEM -->
     <div class="section">
       <h3>The Problem</h3>
-      <p>Before awarding an EPC contract, the buyer checks each vendor&rsquo;s financial and credential eligibility: annual turnover, net worth, years of experience, similar project history, certifications. An evaluator hunts through 5-15 documents per vendor, cross-references numbers against the tender&rsquo;s evaluation template (an Excel sheet with fields, thresholds, and document requirements), and cites sources. <strong>2-3 hours per vendor &times; 10-15 vendors per tender.</strong></p>
-
-      <p>The core engineering problem is that no single document has all the fields, and the same field can appear in multiple documents with different representations &mdash; &ldquo;23.47 Crores&rdquo; in a CA certificate vs &ldquo;23,47,18,942&rdquo; in a balance sheet vs &ldquo;approximately 25 Crores&rdquo; in a self-declaration. The system maps each field to its designated document types, extracts from those, normalizes Indian financial notation, and resolves conflicts using a source authority hierarchy &mdash; which document type to trust over which, per field &mdash; encoding the same judgment an experienced evaluator applies manually.</p>
+      <p>Buyers check each vendor&rsquo;s financial eligibility across 5-15 documents: turnover, net worth, experience, certifications. The same field appears in multiple documents with different representations &mdash; &ldquo;23.47 Crores&rdquo; in a CA certificate vs &ldquo;23,47,18,942&rdquo; in a balance sheet. <strong>2-3 hours per vendor &times; 10-15 vendors per tender.</strong></p>
     </div>
 
     <!-- DESIGN (diagram-led) -->
@@ -579,8 +578,8 @@
       </div>
 
       <div class="callout">
-        <strong>Phase 1</strong> runs in parallel: the schema builder reads the client&rsquo;s evaluation template and generates field specifications (what to extract, data types, thresholds), while the classifier categorizes each vendor document by type &mdash; balance sheet, F10, compliance certificate, self-declaration &mdash; and routes each to text or vision extraction based on whether it&rsquo;s digital or scanned.<br><br>
-        <strong>Phase 2</strong> extracts each field from its designated document types &mdash; turnover from the F10 and balance sheet, certifications from scanned certificates, experience from self-declarations. Values are normalized (crore/lakh representations to raw INR) and merged: when the same field appears in multiple sources, the higher-authority source wins. Conflicts are surfaced with source citations &mdash; the evaluator sees the final value and any discrepancies, not a black-box answer.
+        <strong>Phase 1</strong> (parallel): schema builder reads the template &rarr; field specs + thresholds. Classifier categorizes each vendor document by type (F10, balance sheet, certificate, self-declaration) and routes to text or vision extraction.<br><br>
+        <strong>Phase 2:</strong> extracts each field from designated source types, normalizes Indian financial notation to raw INR, and resolves conflicts via source authority hierarchy (CA-certified F10 &gt; balance sheet &gt; self-declaration). Evaluator sees final value + any discrepancies with source citations.
       </div>
     </div>
 
